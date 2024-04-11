@@ -1,0 +1,252 @@
+.marble-bg {
+}
+
+.marble-bg::before {
+}
+
+.macro_buttons {
+}
+
+.macro_button {
+}
+
+.player_stats {
+}
+
+.health-bar {
+}
+
+.health-bar-current {
+}
+
+.health-bar-current::before {
+}
+
+#youtube-background-player {
+  width: 720px;
+  height: 796px;
+  top: -196px;
+  position: absolute;
+  left: 41px;
+}
+
+.user-name {
+  position: absolute;
+  left: 679px;
+  top: 20px;
+}
+
+/* screenshot, experience, gained experience */
+.yellow-text {
+  color: #fce803;
+}
+
+/* user inflicts damage, local chat */
+.black-text {
+  color: #281e16;
+}
+
+/* emotes, spell casting messages,  */
+.blue-text {
+  color: #150a6e;
+}
+
+/* user receives damage, shouts */
+.red-text {
+  color: #cf081b;
+}
+
+/* ooc messages */
+.green-text {
+  color: #55873a;
+}
+
+/* /who lookups, PMs */
+.purple-text {
+  color: #7e476b;
+}
+
+/* displays names of user and party members on marble BG texture */
+.name-text {
+  color: #abb0b3;
+}
+
+/* group chat messages */
+.teal-text {
+  color: #80e8de;
+}
+
+
+
+.health-bar {
+  position: absolute;
+  right: 24px;
+  top: 54px;
+  width: 99px;
+}
+
+.empty-health {
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.full-health-container {
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.full-health-image {
+  width: 99px;
+}
+
+.mana-bar {
+  position: absolute;
+  right: 24px;
+  top: 66px;
+  width: 99px;
+}
+
+.empty-mana {
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.full-mana-container {
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.full-mana-image {
+  width: 99px;
+}
+
+.xp-bar {
+  position: absolute;
+  right: 24px;
+  top: 78px;
+  width: 99px;
+}
+
+.empty-xp {
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.full-xp-container {
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.full-xp-image {
+  width: 99px;
+}
+
+.xp-bar-sub {
+  position: absolute;
+  right: 24px;
+  top: 78px;
+  width: 99px;
+}
+
+.empty-xp-sub {
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.full-xp-container-sub {
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.full-xp-image-sub {
+  width: 99px;
+}
+
+body {
+  background-color: grey;
+  font-family: Arial, sans-serif;
+  font-style: normal;
+  font-size: 12px;
+}
+
+.container {
+  display: grid;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  margin: 50px auto; /* This will center the container horizontally */
+  justify-items: center; /* This will center the grid items horizontally */
+  align-items: center; /* This will center the grid items vertically */
+  background-image: url("/static/everbitica/images/classic_full_screen_bg_blank.png");
+  width: 800px;
+  height: 600px;
+  position: relative;
+  overflow: hidden;
+}
+
+.view {
+  overflow: hidden;
+  z-index: -1;
+}
+
+.left_sidebar {
+}
+
+.left_sidebar_top {
+}
+
+.spellbar {
+}
+
+.system_options {
+}
+
+.left_sidebar_bottom {
+}
+
+.right_sidebar {
+}
+
+.chat {
+  width: 390px;
+  height: 169px;
+  overflow-y: auto;
+  left: 186px;
+  top: 416px;
+  position: absolute;
+  font-size: 10px;
+}
+
+.right_sidebar_top {
+}
+
+.player_stats {
+}
+
+.group {
+}
+
+.target_and_actions {
+}
+
+.right_sidebar_bottom {
+}

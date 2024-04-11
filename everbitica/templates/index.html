@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EverBitica</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'everbitica/images/favicon.ico' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'everbitica/styles.css' %}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="view">
+        <iframe
+          id="youtube-background-player"
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/egErjaxXK-c?autoplay=1&mute=1&start=1073"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        ></iframe>
+      </div>
+      <div class="left_sidebar marble-bg">
+        <div class="left_sidebar_top">
+          <div class="spellbar">
+            <!-- 8 spell gem slots with unique ID -->
+            <div class="spell_gem" id="spell_gem_1">1</div>
+            <div class="spell_gem" id="spell_gem_2">2</div>
+            <div class="spell_gem" id="spell_gem_3">3</div>
+            <div class="spell_gem" id="spell_gem_4">4</div>
+            <div class="spell_gem" id="spell_gem_5">5</div>
+            <div class="spell_gem" id="spell_gem_6">6</div>
+            <div class="spell_gem" id="spell_gem_7">7</div>
+            <div class="spell_gem" id="spell_gem_8">8</div>
+          </div>
+          <div class="system_options">
+            <!-- help button -->
+            <button class="help_button">Help</button>
+            <!-- options button -->
+            <button class="options_button">Options</button>
+            <!-- persona button -->
+            <button class="persona_button">Persona</button>
+            <!-- div for class graphic -->
+            <div class="class_graphic"></div>
+            <!-- spells button -->
+            <button class="spells_button">Spells</button>
+            <!-- view button -->
+            <button class="view_button">View</button>
+          </div>
+        </div>
+        <div class="left_sidebar_bottom">
+          <!-- left and row right page selection, uses left and right arrow -->
+          <div class="page_selection">
+            <button class="left_arrow"><-</button>
+            <!-- text to show current page -->
+            <p class="page_number">1</p>
+            <button class="right_arrow">-></button>
+          </div>
+          <!-- 6 macro buttons in two columns of three in each column, using button elements and each with unique ID-->
+          <div class="macro_buttons">
+            <button class="macro_button" id="macro_button_1">1</button>
+            <button class="macro_button" id="macro_button_2">2</button>
+            <button class="macro_button" id="macro_button_3">3</button>
+            <button class="macro_button" id="macro_button_4">4</button>
+            <button class="macro_button" id="macro_button_5">5</button>
+            <button class="macro_button" id="macro_button_6">6</button>
+          </div>
+        </div>
+      </div>
+      <div class="right_sidebar">
+        <div class="right_sidebar_top marble-bg">
+          <div class="user-name name-text">
+            {{ user_data.data.profile.name }}
+          </div>
+          <div class="player_stats">
+            <div class="health-bar">
+              <img
+                src="/static/everbitica/images/healthbar_empty.png"
+                class="empty-health"
+              />
+              <div
+                class="full-health-container"
+                style="width: calc(({{ player_health_percent }} * 74px) + 13px)"
+              >
+                <img
+                  src="/static/everbitica/images/healthbar_full.png"
+                  class="full-health-image"
+                />
+              </div>
+            </div>
+            <div class="mana-bar">
+              <img
+                src="/static/everbitica/images/manabar_empty.png"
+                class="empty-mana"
+              />
+              <div
+                class="full-mana-container"
+                style="width: calc(({{ player_mana_percent }} * 74px) + 13px)"
+              >
+                <img
+                  src="/static/everbitica/images/manabar_full.png"
+                  class="full-mana-image"
+                />
+              </div>
+            </div>
+            <div class="xp-bar">
+              <img
+                src="/static/everbitica/images/xpbar_empty.png"
+                class="empty-xp"
+              />
+              <div
+                class="full-xp-container"
+                style="width: calc(({{ player_xp_percent }} * 74px) + 13px)"
+              >
+                <img
+                  src="/static/everbitica/images/xpbar_full.png"
+                  class="full-xp-image"
+                />
+              </div>
+            </div>
+            <div class="xp-bar-sub">
+              <div class="empty-xp-sub">
+                <div
+                  class="full-xp-container-sub"
+                  style="width: calc(({{ player_xp_percent_subbar }} * 74px) + 13px)"
+                >
+                  <img
+                    src="/static/everbitica/images/xpbar_subbar_full.png"
+                    class="full-xp-image-sub"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="mana_bar"></div>
+            <div class="experience_bar"></div>
+          </div>
+          <div class="group"></div>
+          <div class="target_and_actions"></div>
+        </div>
+        <div class="right_sidebar_bottom marble-bg"></div>
+      </div>
+      <div class="chat">
+        <!-- loop through all messages -->
+        {% for message in messages %}
+        <!-- display each message with the message text and the message sender -->
+        <span class="{{ message.class }}">{{ message.text }}</span><br />
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+  <script>
+    window.onload = function () {
+      var chatBox = document.querySelector(".chat");
+      chatBox.scrollTop = chatBox.scrollHeight;
+    };
+  </script>
+</html>

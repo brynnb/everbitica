@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EverQuest</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'everbitica/styles.css' %}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="view">
+        <h3>Classes</h3>
+        {% for class in player_classes %}
+        <p>{{ class }}</p>
+        {% endfor %}
+
+        <!-- display habitica_user JSON -->
+        <h3>Habitica User</h3>
+        <p>{{ player_health_percent }}</p>
+      </div>
+      <div class="left_sidebar marble-bg">
+        <div class="left_sidebar_top">
+          <div class="spellbar">
+            <!-- 8 spell gem slots with unique ID -->
+            <div class="spell_gem" id="spell_gem_1">1</div>
+            <div class="spell_gem" id="spell_gem_2">2</div>
+            <div class="spell_gem" id="spell_gem_3">3</div>
+            <div class="spell_gem" id="spell_gem_4">4</div>
+            <div class="spell_gem" id="spell_gem_5">5</div>
+            <div class="spell_gem" id="spell_gem_6">6</div>
+            <div class="spell_gem" id="spell_gem_7">7</div>
+            <div class="spell_gem" id="spell_gem_8">8</div>
+          </div>
+          <div class="system_options">
+            <!-- help button -->
+            <button class="help_button">Help</button>
+            <!-- options button -->
+            <button class="options_button">Options</button>
+            <!-- persona button -->
+            <button class="persona_button">Persona</button>
+            <!-- div for class graphic -->
+            <div class="class_graphic"></div>
+            <!-- spells button -->
+            <button class="spells_button">Spells</button>
+            <!-- view button -->
+            <button class="view_button">View</button>
+          </div>
+        </div>
+        <div class="left_sidebar_bottom">
+          <!-- left and row right page selection, uses left and right arrow -->
+          <div class="page_selection">
+            <button class="left_arrow"><-</button>
+            <!-- text to show current page -->
+            <p class="page_number">1</p>
+            <button class="right_arrow">-></button>
+          </div>
+          <!-- 6 macro buttons in two columns of three in each column, using button elements and each with unique ID-->
+          <div class="macro_buttons">
+            <button class="macro_button" id="macro_button_1">1</button>
+            <button class="macro_button" id="macro_button_2">2</button>
+            <button class="macro_button" id="macro_button_3">3</button>
+            <button class="macro_button" id="macro_button_4">4</button>
+            <button class="macro_button" id="macro_button_5">5</button>
+            <button class="macro_button" id="macro_button_6">6</button>
+          </div>
+        </div>
+      </div>
+      <div class="right_sidebar"></div>
+      <div class="chat"></div>
+      <div class="right_sidebar_top marble-bg">
+        <div class="player_stats">
+          <!-- display health, mana, and experience as progress bar style elements. colors should be red, blue, and yellow -->
+          
+          <!-- display  habitica_user.hp as a health bar, the maximum value of which is 50. include inline css to have the habitica_user.hp value fill the bar as appropriate-->
+          
+          <div class="health-bar">
+            <div class="empty-health"></div>
+            <div class="full-health" style="width: calc({{ player_health_percent }}% - 55px)"></div>
+          </div>
+
+          </div>
+          <div class="mana_bar"></div>
+          <div class="experience_bar"></div>
+
+        </div>
+        <div class="group"></div>
+        <div class="target_and_actions"></div>
+      </div>
+      <div class="right_sidebar_bottom marble-bg"></div>
+    </div>
+  </body>
+</html>
