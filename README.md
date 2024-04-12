@@ -4,6 +4,8 @@ This is an alternative interface for Habitica based on the GUI from the classic 
 
 This project's use of EverQuest images and text falls under [Fair Use](https://en.wikipedia.org/wiki/Fair_use) because this project is both commentary and parody by contrasting the completely useless time-suck of EverQuest with the productive and life-enriching habits tracked and encouraged by Habitica. It will also never generate income of any sort and generally has zero impact on the value and operation of the EverQuest franchise by its current owners. 
 
+This alternative interface is a stand-alone Django web application and doesn't integrate directly with Habitica aside from API calls. 
+
 ### Dev
 
 Run `docker "everbitica"` - there's a container for serving web app and one for postgres. 
