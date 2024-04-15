@@ -76,8 +76,6 @@
   color: #80e8de;
 }
 
-
-
 .health-bar {
   position: absolute;
   right: 24px;
@@ -216,7 +214,6 @@ body {
 }
 
 .help_button {
-
 }
 
 .left_sidebar_top {
@@ -225,48 +222,6 @@ body {
   top: 0px;
   height: 387px;
 }
-
-#spell_gem_1 {
-  background-size: 263px;
-
-}
-#spell_gem_2 {
-  background-size: 263px;
-
-}
-#spell_gem_3 {
-  background-size: 263px;
-
-}
-#spell_gem_4 {
-  background: url("/static/everbitica/images/gemicons01.png") 1px 0 no-repeat;
-  background-size: 263px;
-
-}
-#spell_gem_5 {
-  background: url("/static/everbitica/images/gemicons01.png") 1px 0 no-repeat;
-  background-size: 263px;
-
-}
-#spell_gem_6 {
-  background: url("/static/everbitica/images/gemicons01.png") 1px 0 no-repeat;
-  background-size: 263px;
-
-}
-#spell_gem_7 {
-  background: url("/static/everbitica/images/gemicons01.png") 1px 0 no-repeat;
-  background-size: 263px;
-
-}
-#spell_gem_8 {
-  background: url("/static/everbitica/images/gemicons01.png") 1px 0 no-repeat;
-  background-size: 263px;
-
-}
-
-
-
-
 
 .spell_gem {
   margin-top: 19px;

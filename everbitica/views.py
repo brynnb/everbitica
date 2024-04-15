@@ -34,18 +34,53 @@ def index(request):
         get_quest_progress(quest_data, saved_content)
     )
 
-    player_health_percent = user_data.data.stats.hp / user_data.data.stats.maxHealth
-    player_mana_percent = user_data.data.stats.mp / user_data.data.stats.maxMP
-    player_xp_percent = user_data.data.stats.exp / user_data.data.stats.toNextLevel
-    player_xp_percent_subbar = (
-        player_xp_percent % 0.2
-    ) / 0.2  # how far into the current 1/5th segment the player is
-
     messages = format_messages(chat_data.data)
+    player_data = get_player_data(user_data)
 
     # group_members = habitica_client.group.get_members()
     # print(group_members)
 
+    return render(
+        request,
+        "index.html",
+        {
+            "user_data": user_data,
+            "player_data": player_data,            
+            "messages": messages,
+            "current_target_name": current_target_name,
+            "target_percent_done": target_percent_done,
+            "spell_gems": get_spell_gems(),
+        },
+    )
+
+def get_player_data(user_data):
+    health_percent = user_data.data.stats.hp / user_data.data.stats.maxHealth
+    mana_percent = user_data.data.stats.mp / user_data.data.stats.maxMP
+    xp_percent = user_data.data.stats.exp / user_data.data.stats.toNextLevel
+    xp_percent_subbar = (
+        xp_percent % 0.2
+    ) / 0.2  # how far into the current 1/5th segment the player is
+
+    # combine all into a single dictionary to return
+    player_data = {
+        "health_percent": health_percent,
+        "mana_percent": mana_percent,
+        "xp_percent": xp_percent,
+        "xp_percent_subbar": xp_percent_subbar,
+    }
+
+    return player_data
+
+# def get_group_members(group_data):
+#     # get all group members and their class
+#     group_members = {}
+#     for member in group_data.data.members:
+#         group_members[member.id] = member.profile.name
+
+#     return group_members
+
+
+def get_spell_gems():
     spell_gems = {
         "1": {"spritesheet": "gemicons01.png", "x": 1, "y": 0},
         "2": {"spritesheet": "gemicons01.png", "x": -37, "y": 0},
@@ -56,32 +91,8 @@ def index(request):
         "7": {"spritesheet": "gemicons01.png", "x": -222, "y": 0},
         "8": {"spritesheet": "gemicons01.png", "x": -222, "y": -28},
     }
-   
 
-    return render(
-        request,
-        "index.html",
-        {
-            "user_data": user_data,
-            "player_xp_percent": player_xp_percent,
-            "player_health_percent": player_health_percent,
-            "player_mana_percent": player_mana_percent,
-            "messages": messages,
-            "player_xp_percent_subbar": player_xp_percent_subbar,
-            "current_target_name": current_target_name,
-            "target_percent_done": target_percent_done,
-            "spell_gems": spell_gems,
-        },
-    )
-
-
-# def get_group_members(group_data):
-#     # get all group members and their class
-#     group_members = {}
-#     for member in group_data.data.members:
-#         group_members[member.id] = member.profile.name
-
-#     return group_members
+    return spell_gems
 
 
 def get_quest_progress(quest_data, saved_content):

@@ -86,7 +86,7 @@
               />
               <div
                 class="full-health-container"
-                style="width: calc(({{ player_health_percent }} * 74px) + 13px)"
+                style="width: calc(({{ player_data.health_percent }} * 74px) + 13px)"
               >
                 <img
                   src="/static/everbitica/images/healthbar_full.png"
@@ -101,7 +101,7 @@
               />
               <div
                 class="full-mana-container"
-                style="width: calc(({{ player_mana_percent }} * 74px) + 13px)"
+                style="width: calc(({{ player_data.mana_percent }} * 74px) + 13px)"
               >
                 <img
                   src="/static/everbitica/images/manabar_full.png"
@@ -116,7 +116,7 @@
               />
               <div
                 class="full-xp-container"
-                style="width: calc(({{ player_xp_percent }} * 74px) + 13px)"
+                style="width: calc(({{ player_data.xp_percent }} * 74px) + 13px)"
               >
                 <img
                   src="/static/everbitica/images/xpbar_full.png"
@@ -128,7 +128,7 @@
               <div class="empty-xp-sub">
                 <div
                   class="full-xp-container-sub"
-                  style="width: calc(({{ player_xp_percent_subbar }} * 74px) + 13px)"
+                  style="width: calc(({{ player_data.xp_percent_subbar }} * 74px) + 13px)"
                 >
                   <img
                     src="/static/everbitica/images/xpbar_subbar_full.png"
