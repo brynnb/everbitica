@@ -211,10 +211,74 @@ body {
 .left_sidebar {
 }
 
-.left_sidebar_top {
+.ui_button {
+  position: absolute;
 }
 
+.help_button {
+
+}
+
+.left_sidebar_top {
+  position: absolute;
+  left: 0;
+  top: 0px;
+  height: 387px;
+}
+
+#spell_gem_1 {
+  background-size: 263px;
+
+}
+#spell_gem_2 {
+  background-size: 263px;
+
+}
+#spell_gem_3 {
+  background-size: 263px;
+
+}
+#spell_gem_4 {
+  background: url("/static/everbitica/images/gemicons01.png") 1px 0 no-repeat;
+  background-size: 263px;
+
+}
+#spell_gem_5 {
+  background: url("/static/everbitica/images/gemicons01.png") 1px 0 no-repeat;
+  background-size: 263px;
+
+}
+#spell_gem_6 {
+  background: url("/static/everbitica/images/gemicons01.png") 1px 0 no-repeat;
+  background-size: 263px;
+
+}
+#spell_gem_7 {
+  background: url("/static/everbitica/images/gemicons01.png") 1px 0 no-repeat;
+  background-size: 263px;
+
+}
+#spell_gem_8 {
+  background: url("/static/everbitica/images/gemicons01.png") 1px 0 no-repeat;
+  background-size: 263px;
+
+}
+
+
+
+
+
+.spell_gem {
+  margin-top: 19px;
+  width: 38px;
+  height: 29px;
+  left: 11px;
+}
 .spellbar {
+  width: 30px;
+  left: 111px;
+  position: absolute;
+  padding-top: 2px;
 }
 
 .system_options {

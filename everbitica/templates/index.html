@@ -30,28 +30,28 @@
         <div class="left_sidebar_top">
           <div class="spellbar">
             <!-- 8 spell gem slots with unique ID -->
-            <div class="spell_gem" id="spell_gem_1">1</div>
-            <div class="spell_gem" id="spell_gem_2">2</div>
-            <div class="spell_gem" id="spell_gem_3">3</div>
-            <div class="spell_gem" id="spell_gem_4">4</div>
-            <div class="spell_gem" id="spell_gem_5">5</div>
-            <div class="spell_gem" id="spell_gem_6">6</div>
-            <div class="spell_gem" id="spell_gem_7">7</div>
-            <div class="spell_gem" id="spell_gem_8">8</div>
+
+            {% for key, gem in spell_gems.items %}
+            <div
+              class="spell_gem"
+              id="spell_gem_{{ key }}"
+              style="background: url('/static/everbitica/images/{{ gem.spritesheet }}') {{ gem.x }}px {{ gem.y }}px no-repeat; background-size: 263px;"
+            ></div>
+            {% endfor %}
           </div>
           <div class="system_options">
             <!-- help button -->
-            <button class="help_button">Help</button>
+            <button class="help_button ui_button">Help</button>
             <!-- options button -->
-            <button class="options_button">Options</button>
+            <button class="options_button ui_button">Options</button>
             <!-- persona button -->
-            <button class="persona_button">Persona</button>
+            <button class="persona_button ui_button">Persona</button>
             <!-- div for class graphic -->
-            <div class="class_graphic"></div>
+            <div class="class_graphic ui_button"></div>
             <!-- spells button -->
-            <button class="spells_button">Spells</button>
+            <button class="spells_button ui_button">Spells</button>
             <!-- view button -->
-            <button class="view_button">View</button>
+            <button class="view_button ui_button">View</button>
           </div>
         </div>
         <div class="left_sidebar_bottom">

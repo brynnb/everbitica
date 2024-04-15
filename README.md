@@ -38,4 +38,6 @@ The spells text file comes from Project1999 downloads. The headings for this CSV
 * Allow sending chat messages
 * Show party members (scrolling or top 5?)
 * Install React and transition HTML/CSS/JS to that
+* Fix CSS/HTML for longer usernames
+* Fix targeting for stuff like aprils fools events (since it's an event and not a quest, it was confusing how this is accessed in content.json since it's seemingly not there at all)
 * Lots more

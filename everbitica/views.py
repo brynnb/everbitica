@@ -30,8 +30,8 @@ def index(request):
     habitica_client.chat.read_all()  # so it doesnt show as unread on direct habaitica site
     habitica_client.notification.read_all()
 
-    total_items, total_boss_hp, current_target_name, target_percent_done = get_quest_progress(
-        quest_data, saved_content
+    total_items, total_boss_hp, current_target_name, target_percent_done = (
+        get_quest_progress(quest_data, saved_content)
     )
 
     player_health_percent = user_data.data.stats.hp / user_data.data.stats.maxHealth
@@ -46,6 +46,18 @@ def index(request):
     # group_members = habitica_client.group.get_members()
     # print(group_members)
 
+    spell_gems = {
+        "1": {"spritesheet": "gemicons01.png", "x": 1, "y": 0},
+        "2": {"spritesheet": "gemicons01.png", "x": -37, "y": 0},
+        "3": {"spritesheet": "gemicons01.png", "x": -74, "y": 0},
+        "4": {"spritesheet": "gemicons01.png", "x": -111, "y": 0},
+        "5": {"spritesheet": "gemicons01.png", "x": -148, "y": 0},
+        "6": {"spritesheet": "gemicons01.png", "x": -185, "y": 0},
+        "7": {"spritesheet": "gemicons01.png", "x": -222, "y": 0},
+        "8": {"spritesheet": "gemicons01.png", "x": -222, "y": -28},
+    }
+   
+
     return render(
         request,
         "index.html",
@@ -58,8 +70,10 @@ def index(request):
             "player_xp_percent_subbar": player_xp_percent_subbar,
             "current_target_name": current_target_name,
             "target_percent_done": target_percent_done,
+            "spell_gems": spell_gems,
         },
     )
+
 
 # def get_group_members(group_data):
 #     # get all group members and their class
@@ -68,6 +82,7 @@ def index(request):
 #         group_members[member.id] = member.profile.name
 
 #     return group_members
+
 
 def get_quest_progress(quest_data, saved_content):
     total_items = 0
@@ -173,10 +188,19 @@ def get_game_content():
                 raise FileNotFoundError
 
             saved_content = json.load(f)
-    except json.JSONDecodeError:  # fetch data if saved json doesn't exist
-        not_auth_client = habitica.NotAuthClient()
-        saved_content = not_auth_client.get_content()
-        with open("content.json", "w") as f:
-            json.dump(saved_content, f)
+    except FileNotFoundError:
+        saved_content = fetch_and_save_content()
+    except (
+        json.JSONDecodeError
+    ):  # fetch data if saved json doesn't exist or is not valid
+        saved_content = fetch_and_save_content()
 
     return saved_content
+
+
+def fetch_and_save_content():
+    not_auth_client = habitica.NotAuthClient()
+    content = not_auth_client.get_content()
+    with open("content.json", "w") as f:
+        json.dump(content, f)
+    return content
