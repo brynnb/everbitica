@@ -45,13 +45,14 @@ def index(request):
         "index.html",
         {
             "user_data": user_data,
-            "player_data": player_data,            
+            "player_data": player_data,
             "messages": messages,
             "current_target_name": current_target_name,
             "target_percent_done": target_percent_done,
             "spell_gems": get_spell_gems(),
         },
     )
+
 
 def get_player_data(user_data):
     health_percent = user_data.data.stats.hp / user_data.data.stats.maxHealth
@@ -70,6 +71,7 @@ def get_player_data(user_data):
     }
 
     return player_data
+
 
 # def get_group_members(group_data):
 #     # get all group members and their class
@@ -111,6 +113,9 @@ def get_quest_progress(quest_data, saved_content):
                 total_items += current_quest_content["collect"][key]["count"]
         else:
             total_boss_hp = current_quest_content["boss"]["hp"]
+            current_boss_hp = quest_data.data.quest.progress.hp
+            percent_done = (current_boss_hp / total_boss_hp)
+            current_target_name = current_quest_content["boss"]["name"]
 
     return total_items, total_boss_hp, current_target_name, percent_done
 
