@@ -114,7 +114,10 @@ def get_quest_progress(quest_data, saved_content):
         else:
             total_boss_hp = current_quest_content["boss"]["hp"]
             current_boss_hp = quest_data.data.quest.progress.hp
-            percent_done = (current_boss_hp / total_boss_hp)
+
+            if current_boss_hp is not None and total_boss_hp is not None and total_boss_hp > 0:
+                percent_done = (current_boss_hp / total_boss_hp)
+      
             current_target_name = current_quest_content["boss"]["name"]
 
     return total_items, total_boss_hp, current_target_name, percent_done

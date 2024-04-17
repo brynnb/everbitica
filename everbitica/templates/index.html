@@ -143,19 +143,16 @@
           <div class="group"></div>
           <div class="target_and_actions">
             <div class="target-health-bar">
-              <img
-                src="/static/everbitica/images/healthbar_empty.png"
-                class="target-empty-health"
-              />
-              <div
-                class="target-full-health-container"
-                style="width: calc(({{ player_data.health_percent }} * 74px) + 13px)"
-              >
-                <img
-                  src="/static/everbitica/images/healthbar_full.png"
-                  class="target-full-health-image"
-                />
+
+                <div class="target-full-health-container" style="overflow:hidden; width:calc({{ target_percent_done }} * 126px) ">
+                  <img
+                    src="/static/everbitica/images/target_healthbar_full.png"
+                    class="target-full-health-image"
+                  />
+                </div>
+                <div class="target_name">{{ current_target_name }}</div>
               </div>
+
             </div>
           </div>
         </div>
