@@ -331,3 +331,13 @@ body {
 .class_graphic_container {
 
 }
+
+.spell-book-graphic {
+  width: 170px;
+  height: 115px;
+  background: url("/static/everbitica/images/leftandbuttons.png") -536px 0;
+  position: absolute;
+  left: -28px;
+  top: 230px;
+  transform: scale(0.6);
+}
