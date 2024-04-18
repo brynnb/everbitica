@@ -72,7 +72,7 @@
 
 /* displays names of user and party members on marble BG texture */
 .name-text {
-  color: #abb0b3;
+  color: #d1d2d3;
 }
 
 /* group chat messages */
@@ -291,8 +291,8 @@ body {
 }
 
 .target_name {
-  color: #d9d9d9;
-  top: 0px;
+  color: #e4e1e1;
+  top: -1px;
   position: absolute;
   left: 0px;
   font-size: .9vw;
