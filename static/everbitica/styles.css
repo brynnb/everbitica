@@ -210,7 +210,12 @@ body {
   z-index: -1;
 }
 
-.left_sidebar {
+.left-sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 149px;
+  height: 600px;
 }
 
 .ui_button {
@@ -225,6 +230,7 @@ body {
   left: 0;
   top: 0px;
   height: 387px;
+  width: 100%;
 }
 
 .spell_gem {
@@ -246,7 +252,7 @@ body {
 .left_sidebar_bottom {
 }
 
-.right_sidebar {
+.right-sidebar {
   right: 0px;
   position: absolute;
   top: 0px;
@@ -256,9 +262,9 @@ body {
 
 .chat {
   width: 397px;
-  height: 158px;
+  height: 164px;
   overflow-y: auto;
-  left: 319px;
+  left: 470px;
   top: 463px;
   position: absolute;
   font-size: 10px;
@@ -297,4 +303,31 @@ body {
 
 .target-full-health-image {
   height: 15px;
+}
+@keyframes sprite-animation {
+  0% { background-position: -0px -0px; }
+  1.67% { background-position: -175px -0px; }
+  3.33% { background-position: -350px -0px; }
+  5% { background-position: -525px -0px; }
+  6.67% { background-position: -0px -356px; }
+  8.33% { background-position: -175px -356px; }
+  10% { background-position: -350px -356px; }
+  11.67% { background-position: -525px -356px; }
+  13.33% { background-position: -0px -712px; }
+  15% { background-position: -175px -712px; }
+  16.67% { background-position: -350px -712px; }
+  20%, 100% { background-position: -525px -712px; }
+}
+.class_graphic_image {
+  width: 175px;
+  height: 356px;
+  background: url("/static/everbitica/images/class_animations/cleric_class_animation.png") 0 0;
+  animation: sprite-animation 20s steps(1) infinite;
+  transform: scale(0.4);
+  right: 8px;
+  position: absolute;
+  top: 12px;
+}
+.class_graphic_container {
+
 }

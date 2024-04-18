@@ -26,7 +26,7 @@
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         ></iframe>
       </div>
-      <div class="left_sidebar marble-bg">
+      <div class="left-sidebar marble-bg">
         <div class="left_sidebar_top">
           <div class="spellbar">
             <!-- 8 spell gem slots with unique ID -->
@@ -47,7 +47,9 @@
             <!-- persona button -->
             <button class="persona_button ui_button">Persona</button>
             <!-- div for class graphic -->
-            <div class="class_graphic ui_button"></div>
+            <div class="class_graphic_container">
+              <div class="class_graphic_image"></div>
+            </div>
             <!-- spells button -->
             <button class="spells_button ui_button">Spells</button>
             <!-- view button -->
@@ -73,7 +75,7 @@
           </div>
         </div>
       </div>
-      <div class="right_sidebar">
+      <div class="right-sidebar">
         <div class="right_sidebar_top marble-bg">
           <div class="user-name name-text">
             {{ user_data.data.profile.name }}
