@@ -104,5 +104,6 @@ class Invite(HabiticaBaseModel):
 class InviteResponse(Response):
     data: List[Invite]
 
+
 class GetGroupMembersResponse(Response):
-    members: Dict
+    data: List

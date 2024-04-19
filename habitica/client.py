@@ -63,8 +63,8 @@ class Client(HabiticaEndpointsProcessor):
         url = "https://habitica.com/export/userdata.json"
         response = requests.get(url=url, headers=self._get_auth_headers())
         cur_time = datetime.now()
-        # TODO - собрать путь до сохранения
-        # TODO - сохранять pretty json, а не raw
+        # TODO - assemble the path to save
+        # TODO - save pretty json, not raw
         with open(f"userdata-{cur_time}.json", "w") as f:
             f.write(response.text)
 

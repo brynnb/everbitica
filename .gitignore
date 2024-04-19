@@ -4,6 +4,7 @@ __pycache__
 .DS_Store
 .vscode
 content.json
+view_data.json
 
 ### macOS ###
 # General

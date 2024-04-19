@@ -20,6 +20,10 @@ docker-compose exec web python manage.py migrate
 docker-compose exec web python manage.py seed_playerclass
 
 
+#### Tests
+
+ docker-compose exec web python manage.py test everbitica.tests.GetPartyMembersTest
+
 #### Requirements Updates
 
 Changes to requirements.txt to add libraries requires:
@@ -34,10 +38,24 @@ The spells text file comes from Project1999 downloads. The headings for this CSV
 
 ### To-Do
 
-* Get "Current Target" UI element to show current boss or collection quest name
+* Make current user name not show in party members
+* Test current target for non-boss times and for collection question times
+* Fix styling issues with scaling/resizing window
+* Have it pull in habits and to-do items, be able to press them in UI
+* Add options window
+* Add webhooks to auto update (probably wait for React implementation for this)
+* Create list of Youtube videos to embed along with timestamps to randomly start between
 * Allow sending chat messages
 * Show party members (scrolling or top 5?)
 * Install React and transition HTML/CSS/JS to that
 * Fix CSS/HTML for longer usernames
 * Fix targeting for stuff like aprils fools events (since it's an event and not a quest, it was confusing how this is accessed in content.json since it's seemingly not there at all)
+* Add auto-action options
+    * Auto-heal 
+    * Auto-buy healing potion
+    * Auto-nuke
+    * Auto quest accept
+    * Auto chat pending boss damage
+* Multi-nuke option
+* Test for bugs when not in a party
 * Lots more

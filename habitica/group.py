@@ -120,7 +120,7 @@ class GroupClient(HabiticaEndpointsProcessor):
         response = requests.post(url, headers=self._get_auth_headers(), json=data)
         return self._map_error(response.json(), GroupShortInfoDataResponse)
 
-    def get_members(self, group_id: str) -> Response:
-        url = self._build_url(f"groups/{group_id}/members") # https://habitica.com/api/v4/groups/party/members?includeAllPublicFields=true
+    def get_members(self, group_id: str = "party") -> Response:
+        url = self._build_url(f"groups/{group_id}/members?includeAllPublicFields=true")
         response = requests.get(url, headers=self._get_auth_headers())
         return self._map_error(response.json(), GetGroupMembersResponse)

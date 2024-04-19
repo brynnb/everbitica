@@ -21,7 +21,7 @@
           id="youtube-background-player"
           width="560"
           height="315"
-          src="https://www.youtube.com/embed/awN7hdTfivE?autoplay=1&mute=1&start=1073&loop=1"
+          src="{{ video_embed_url }}"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         ></iframe>
@@ -79,7 +79,7 @@
       <div class="right-sidebar">
         <div class="right_sidebar_top marble-bg">
           <div class="user-name name-text">
-            {{ user_data.data.profile.name }}
+            {{ player_data.name }}
           </div>
           <div class="player_stats">
             <div class="health-bar">
@@ -143,7 +143,18 @@
             <div class="mana_bar"></div>
             <div class="experience_bar"></div>
           </div>
-          <div class="group"></div>
+          <div class="group-container">
+          {% for member in party_members %}
+          <div class="group-member ">
+          <span class="group-member-name name-text">
+          {{ member.username }}
+          </span>
+            
+            {% include 'includes/stat_bar.html' with percent_full=member.healthPercent %}
+          </div>
+
+          {% endfor %}
+          </div>
           <div class="target_and_actions">
             <div class="target-health-bar">
 
