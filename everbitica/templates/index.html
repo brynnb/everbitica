@@ -16,6 +16,13 @@
   </head>
   <body>
     <div class="container">
+      <div class="chat">
+        <!-- loop through all messages -->
+        {% for message in messages %}
+        <!-- display each message with the message text and the message sender -->
+        <span class="{{ message.class }}">{{ message.text }}</span><br />
+        {% endfor %}
+      </div>
       <div class="view">
         <iframe
           id="youtube-background-player"
@@ -172,13 +179,7 @@
         </div>
         <div class="right_sidebar_bottom marble-bg"></div>
       </div>
-      <div class="chat">
-        <!-- loop through all messages -->
-        {% for message in messages %}
-        <!-- display each message with the message text and the message sender -->
-        <span class="{{ message.class }}">{{ message.text }}</span><br />
-        {% endfor %}
-      </div>
+
     </div>
   </body>
   <script>

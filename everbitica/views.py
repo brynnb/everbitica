@@ -47,7 +47,7 @@ def get_party_members():
     simplified_members = []
     for member in party_members:
         simplified_members.append(
-            {
+        {
                 "hp": member["stats"]["hp"],
                 "mp": member["stats"]["mp"],
                 "maxMP": member["stats"]["maxMP"],

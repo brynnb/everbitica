@@ -34,7 +34,7 @@
   position: absolute;
   left: 29px;
   top: 20px;
-  font-size: 1vw;
+  font-size: 10pt;
   width: 98px;
   height: 32px;
   overflow: hidden;
@@ -264,8 +264,8 @@ body {
   width: 397px;
   height: 164px;
   overflow-y: auto;
-  left: 470px;
-  top: 463px;
+  left: 179px;
+  top: 412px;
   position: absolute;
   font-size: 10px;
 }
@@ -295,7 +295,7 @@ body {
   top: -1px;
   position: absolute;
   left: 0px;
-  font-size: .9vw;
+  font-size: 0.9vw;
   padding-left: 5px;
   padding-top: 2px;
   padding-right: 5px;
@@ -305,23 +305,49 @@ body {
   height: 15px;
 }
 @keyframes sprite-animation {
-  0% { background-position: -0px -0px; }
-  1.67% { background-position: -175px -0px; }
-  3.33% { background-position: -350px -0px; }
-  5% { background-position: -525px -0px; }
-  6.67% { background-position: -0px -356px; }
-  8.33% { background-position: -175px -356px; }
-  10% { background-position: -350px -356px; }
-  11.67% { background-position: -525px -356px; }
-  13.33% { background-position: -0px -712px; }
-  15% { background-position: -175px -712px; }
-  16.67% { background-position: -350px -712px; }
-  20%, 100% { background-position: -525px -712px; }
+  0% {
+    background-position: -0px -0px;
+  }
+  1.67% {
+    background-position: -175px -0px;
+  }
+  3.33% {
+    background-position: -350px -0px;
+  }
+  5% {
+    background-position: -525px -0px;
+  }
+  6.67% {
+    background-position: -0px -356px;
+  }
+  8.33% {
+    background-position: -175px -356px;
+  }
+  10% {
+    background-position: -350px -356px;
+  }
+  11.67% {
+    background-position: -525px -356px;
+  }
+  13.33% {
+    background-position: -0px -712px;
+  }
+  15% {
+    background-position: -175px -712px;
+  }
+  16.67% {
+    background-position: -350px -712px;
+  }
+  20%,
+  100% {
+    background-position: -525px -712px;
+  }
 }
 .class_graphic_image {
   width: 175px;
   height: 356px;
-  background: url("/static/everbitica/images/class_animations/cleric_class_animation.png") 0 0;
+  background: url("/static/everbitica/images/class_animations/cleric_class_animation.png")
+    0 0;
   animation: sprite-animation 20s steps(1) infinite;
   transform: scale(0.4);
   right: 8px;
@@ -329,7 +355,6 @@ body {
   top: 12px;
 }
 .class_graphic_container {
-
 }
 
 .spell-book-graphic {
@@ -341,7 +366,6 @@ body {
   top: 230px;
   transform: scale(0.6);
 }
-
 
 .group-container {
   width: 113px;
@@ -363,11 +387,20 @@ body {
 .health-bar-member {
   position: absolute;
   left: 3px;
-  top: 11px;
+  top: 15px;
   width: 110px;
 }
 
 .group-member-name {
   padding-left: 7px;
   white-space: nowrap;
+  font-size: 9pt;
+  /* image-rendering: pixelated; */
+  /* font-family: 'PixelFJVerdana12pt', sans-serif; */
+
+}
+
+@font-face {
+  font-family: 'PixelFJVerdana12pt';
+  src: url('/static/everbitica/fonts/testfont.woff') format('woff');
 }
