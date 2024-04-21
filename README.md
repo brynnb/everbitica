@@ -1,5 +1,7 @@
 # EverBitica
 
+![image](https://github.com/brynnb/everbitica/assets/1271817/d39130dc-a92e-4475-9db6-86e8d2e67aae)
+
 This is an alternative interface for Habitica based on the GUI from the classic EverQuest client circa ~1999. I'm working on this project because I really enjoy Habitica and use it daily but also have a lot of nostalgia for Everquest. The richness of spells/skills/items/tradeskills available in the EverQuest universe will provide a lot more incentive/reward/progress than base Habitica by itself, which runs out of most content after around three months. 
 
 This project's use of EverQuest images and text falls under [Fair Use](https://en.wikipedia.org/wiki/Fair_use) because this project is both commentary and parody by contrasting the completely useless time-suck of EverQuest with the productive and life-enriching habits tracked and encouraged by Habitica. It will also never generate income of any sort and generally has zero impact on the value and operation of the EverQuest franchise by its current owners. 
