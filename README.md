@@ -48,7 +48,7 @@ The spells text file comes from Project1999 downloads. The headings for this CSV
 * Allow sending chat messages
 * Show party members (scrolling or top 5?)
 * Install React and transition HTML/CSS/JS to that
-* Fix CSS/HTML for longer usernames
+* Fix CSS/HTML for longer usernames (I think this may be done)
 * Fix targeting for stuff like aprils fools events (since it's an event and not a quest, it was confusing how this is accessed in content.json since it's seemingly not there at all)
 * Add auto-action options
     * Auto-heal 
@@ -59,3 +59,14 @@ The spells text file comes from Project1999 downloads. The headings for this CSV
 * Multi-nuke option
 * Test for bugs when not in a party
 * Lots more
+
+
+### Resources
+
+* [EQEmu post on  "Default EverQuest Melee Combat Routines Analyzed and Modeled"](https://www.eqemulator.org/forums/showthread.php?t=40543) - this is probably useful for programming combat logic in the future
+* Similar one on NPC attack rates: https://www.eqemulator.org/forums/showthread.php?t=38734
+EQMechanics repo on github: https://github.com/mackal/EQMechanics/wiki/Some-Vanilla
+
+### Notes
+
+* NPC attack rate is 3 seconds for everything under level 25. This is good enough for me for this project. It's maybe only Kunark where it even changes after level 25. 

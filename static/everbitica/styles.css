@@ -395,12 +395,4 @@ body {
   padding-left: 7px;
   white-space: nowrap;
   font-size: 9pt;
-  /* image-rendering: pixelated; */
-  /* font-family: 'PixelFJVerdana12pt', sans-serif; */
-
-}
-
-@font-face {
-  font-family: 'PixelFJVerdana12pt';
-  src: url('/static/everbitica/fonts/testfont.woff') format('woff');
 }
