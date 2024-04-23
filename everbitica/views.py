@@ -16,8 +16,8 @@ def index(request):
     """Main view for the app. This view will fetch all data needed for the UI, including player stats, chat messages, and quest progress. It will then render the index.html template with this data. If the app is in offline mode, it will attempt to load the view data from a json file. If the file does not exist, it will return an error message."""
 
     offline_mode = os.getenv("OFFLINE_MODE")
-    # offline_mode = False
-    offline_mode = True
+    offline_mode = False
+    # offline_mode = True
 
     if not offline_mode:
         view_data = get_all_ui_data()
