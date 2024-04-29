@@ -21,6 +21,10 @@ docker-compose exec web python manage.py migrate
 
 docker-compose exec web python manage.py seed_playerclass
 
+Copy and paste the devassets/everquest_data.sql to your docker container, somewhere like "/tmp", then:
+
+docker exec -it 1d0 /bin/bash -c "mysql -u user_name -puser_password database_name < /tmp/47.sql" 
+
 
 #### Tests
 
