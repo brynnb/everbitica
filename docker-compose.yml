@@ -1,14 +1,15 @@
 services:
   db:
-    image: postgres
+    image: mariadb:10.5.8
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - ./data/db:/var/lib/mysql
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - MYSQL_DATABASE=database_name
+      - MYSQL_USER=user_name
+      - MYSQL_PASSWORD=user_password
+      - MYSQL_ROOT_PASSWORD=root_password
     ports:
-      - "6543:5432"
+      - "3306:3306"
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -17,10 +18,13 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - DATABASE_NAME=database_name
+      - DATABASE_USER=user_name
+      - DATABASE_PASSWORD=user_password
     depends_on:
       - db
     env_file:
       - .env
+
+
+      
