@@ -3,6 +3,7 @@ psycopg2>=2.8
 requests>=2.25
 mysqlclient==2.1.0
 mariadb
+python-dotenv
 
 #for habitica  API 
 allure-pytest==2.9.45
