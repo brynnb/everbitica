@@ -11,6 +11,11 @@ As a backup if this doesn't work or becomes buggy:
 Copy and paste the devassets/everquest_data.sql to your docker container, somewhere like "/tmp", then:
 
 docker exec -it 1d0 /bin/bash -c "mysql -u user_name -puser_password database_name < /tmp/everquest_data.sql" 
+
+everquest_data.sql was downloaded from the TAKP project here: https://github.com/EQMacEmu/Server/tree/main/utils/sql/database_full/
+
+It was then modified to remove comments since they were throwing errors when trying to import the data, but it's unclear if that would be needed with the import command in its current form
+
 """
 
 
@@ -21,7 +26,7 @@ class Command(BaseCommand):
         load_dotenv()  # Load variables from .env file
         debug = os.getenv("DEBUG")
 
-        # Don't allow outside dev env cus we're dropping tables which is potentianlly dangerous 
+        # Don't allow outside dev env cus we're dropping tables which is potentianlly dangerous
         if not debug:
             raise CommandError(
                 "This command cannot be run outside development environment."
