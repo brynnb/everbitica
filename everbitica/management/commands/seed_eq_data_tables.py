@@ -100,7 +100,6 @@ class Command(BaseCommand):
 
         # Join the tables back into a single string
         filtered_data = "\n".join(filtered_tables)
-        print(filtered_data[:1000])
 
         # Split the filtered_data into separate commands
         commands = filtered_data.split(";\n")

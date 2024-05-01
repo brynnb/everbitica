@@ -26,7 +26,7 @@ docker-compose exec web python manage.py seed_playerclass
 
 #### Tests
 
- docker-compose exec web python manage.py test everbitica.tests.GetPartyMembersTest
+ docker-compose exec web python manage.py test
 
 #### Requirements Updates
 
