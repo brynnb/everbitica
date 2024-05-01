@@ -242,6 +242,7 @@ class Zone(models.Model):
             models.Index(fields=['zoneidnumber',]),
             models.Index(fields=['short_name',]),
         ]
+        db_table = 'eq_zone'
         managed = False
 
 
