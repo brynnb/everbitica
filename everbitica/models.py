@@ -32,6 +32,7 @@ class Book(models.Model):
 
     class Meta:
         db_table = "eq_books"
+        managed = False
 
 
 class Faction(models.Model):
@@ -47,6 +48,7 @@ class Faction(models.Model):
 
     class Meta:
         db_table = "eq_faction_list"
+        managed = False
 
 
 """
@@ -90,11 +92,12 @@ class Lootdrop(models.Model):
 
     class Meta:
         db_table = "eq_lootdrop"
+        managed = False
 
 
 class LootdropEntry(models.Model):
     lootdrop = models.ForeignKey(Lootdrop, on_delete=models.CASCADE)
-    item_id = models.IntegerField()
+    item = models.ForeignKey('Item', on_delete=models.CASCADE, db_column='item_id', default=0)
     item_charges = models.SmallIntegerField(default=1)
     equip_item = models.SmallIntegerField(default=0)
     chance = models.FloatField(default=1)
@@ -106,6 +109,7 @@ class LootdropEntry(models.Model):
     class Meta:
         db_table = "eq_lootdrop_entries"
         unique_together = (("lootdrop", "item_id"),)
+        managed = False
 
 
 class Loottable(models.Model):
@@ -122,6 +126,7 @@ class Loottable(models.Model):
 
     class Meta:
         db_table = "eq_loottable"
+        managed = False
 
 
 class LoottableEntry(models.Model):
@@ -135,8 +140,8 @@ class LoottableEntry(models.Model):
 
     class Meta:
         db_table = "eq_loottable_entries"
-        unique_together = (("loottable", "lootdrop"),)
-
+        unique_together = (("loottable", "lootdrop"),) #TODO: needed, maybe bad?
+        managed = False
 
 class Zone(models.Model):
     short_name = models.CharField(max_length=32, null=True, blank=True)
@@ -237,6 +242,7 @@ class Zone(models.Model):
             models.Index(fields=['zoneidnumber',]),
             models.Index(fields=['short_name',]),
         ]
+        managed = False
 
 
 class Race(models.Model):
@@ -246,6 +252,7 @@ class Race(models.Model):
 
     class Meta:
         db_table = 'eq_races'
+        managed = False
 
 
 
@@ -352,6 +359,7 @@ class NpcType(models.Model):
 
     class Meta:
         db_table = 'eq_npc_types'
+        managed = False
 
 
 
@@ -382,6 +390,7 @@ class Spawn(models.Model):
 
     class Meta:
         db_table = 'eq_spawn2'
+        managed = False
 
 class Spawnentry(models.Model):
     spawngroupID = models.IntegerField(default=0, primary_key=True)
@@ -397,6 +406,7 @@ class Spawnentry(models.Model):
 
     class Meta:
         db_table = 'eq_spawnentry'
+        managed = False
 
 class Spawngroup(models.Model):
     id = models.AutoField(primary_key=True)
@@ -418,3 +428,166 @@ class Spawngroup(models.Model):
 
     class Meta:
         db_table = 'eq_spawngroup'
+        managed = False
+
+
+class Item(models.Model):
+    id = models.IntegerField(primary_key=True)
+    minstatus = models.SmallIntegerField()
+    name = models.CharField(max_length=64)
+    aagi = models.IntegerField()
+    ac = models.IntegerField()
+    acha = models.IntegerField()
+    adex = models.IntegerField()
+    aint = models.IntegerField()
+    asta = models.IntegerField()
+    astr = models.IntegerField()
+    awis = models.IntegerField()
+    bagsize = models.IntegerField()
+    bagslots = models.IntegerField()
+    bagtype = models.IntegerField()
+    bagwr = models.IntegerField()
+    banedmgamt = models.IntegerField()
+    banedmgbody = models.IntegerField()
+    banedmgrace = models.IntegerField()
+    bardtype = models.IntegerField()
+    bardvalue = models.IntegerField()
+    book = models.IntegerField()
+    casttime = models.IntegerField()
+    casttime_2 = models.IntegerField()
+    classes = models.IntegerField()
+    color = models.IntegerField()
+    price = models.IntegerField()
+    cr = models.IntegerField()
+    damage = models.IntegerField()
+    deity = models.IntegerField()
+    delay = models.IntegerField()
+    dr = models.IntegerField()
+    clicktype = models.IntegerField()
+    clicklevel2 = models.IntegerField()
+    elemdmgtype = models.IntegerField()
+    elemdmgamt = models.IntegerField()
+    factionamt1 = models.IntegerField()
+    factionamt2 = models.IntegerField()
+    factionamt3 = models.IntegerField()
+    factionamt4 = models.IntegerField()
+    factionmod1 = models.IntegerField()
+    factionmod2 = models.IntegerField()
+    factionmod3 = models.IntegerField()
+    factionmod4 = models.IntegerField()
+    filename = models.CharField(max_length=32)
+    focuseffect = models.IntegerField()
+    fr = models.IntegerField()
+    fvnodrop = models.IntegerField()
+    clicklevel = models.IntegerField()
+    hp = models.IntegerField()
+    icon = models.IntegerField()
+    idfile = models.CharField(max_length=30)
+    itemclass = models.IntegerField()
+    itemtype = models.IntegerField()
+    light = models.IntegerField()
+    lore = models.CharField(max_length=80)
+    magic = models.IntegerField()
+    mana = models.IntegerField()
+    material = models.IntegerField()
+    maxcharges = models.IntegerField()
+    mr = models.IntegerField()
+    nodrop = models.IntegerField()
+    norent = models.IntegerField()
+    pr = models.IntegerField()
+    procrate = models.IntegerField()
+    races = models.IntegerField()
+    range = models.IntegerField()
+    reclevel = models.IntegerField()
+    recskill = models.IntegerField()
+    reqlevel = models.IntegerField()
+    sellrate = models.FloatField()
+    size = models.IntegerField()
+    skillmodtype = models.IntegerField()
+    skillmodvalue = models.IntegerField()
+    slots = models.IntegerField()
+    clickeffect = models.IntegerField()
+    tradeskills = models.IntegerField()
+    weight = models.IntegerField()
+    booktype = models.IntegerField()
+    recastdelay = models.IntegerField()
+    recasttype = models.IntegerField()
+    updated = models.DateTimeField()
+    comment = models.CharField(max_length=255)
+    stacksize = models.IntegerField()
+    stackable = models.IntegerField()
+    proceffect = models.IntegerField()
+    proctype = models.IntegerField()
+    proclevel2 = models.IntegerField()
+    proclevel = models.IntegerField()
+    worneffect = models.IntegerField()
+    worntype = models.IntegerField()
+    wornlevel2 = models.IntegerField()
+    wornlevel = models.IntegerField()
+    focustype = models.IntegerField()
+    focuslevel2 = models.IntegerField()
+    focuslevel = models.IntegerField()
+    scrolleffect = models.IntegerField()
+    scrolltype = models.IntegerField()
+    scrolllevel2 = models.IntegerField()
+    scrolllevel = models.IntegerField()
+    serialized = models.DateTimeField(null=True)
+    verified = models.DateTimeField(null=True)
+    serialization = models.TextField(null=True)
+    source = models.CharField(max_length=20)
+    lorefile = models.CharField(max_length=32)
+    questitemflag = models.IntegerField()
+    clickunk5 = models.IntegerField()
+    clickunk6 = models.CharField(max_length=32)
+    clickunk7 = models.IntegerField()
+    procunk1 = models.IntegerField()
+    procunk2 = models.IntegerField()
+    procunk3 = models.IntegerField()
+    procunk4 = models.IntegerField()
+    procunk6 = models.CharField(max_length=32)
+    procunk7 = models.IntegerField()
+    wornunk1 = models.IntegerField()
+    wornunk2 = models.IntegerField()
+    wornunk3 = models.IntegerField()
+    wornunk4 = models.IntegerField()
+    wornunk5 = models.IntegerField()
+    wornunk6 = models.CharField(max_length=32)
+    wornunk7 = models.IntegerField()
+    focusunk1 = models.IntegerField()
+    focusunk2 = models.IntegerField()
+    focusunk3 = models.IntegerField()
+    focusunk4 = models.IntegerField()
+    focusunk5 = models.IntegerField()
+    focusunk6 = models.CharField(max_length=32)
+    focusunk7 = models.IntegerField()
+    scrollunk1 = models.IntegerField()
+    scrollunk2 = models.IntegerField()
+    scrollunk3 = models.IntegerField()
+    scrollunk4 = models.IntegerField()
+    scrollunk5 = models.IntegerField()
+    scrollunk6 = models.CharField(max_length=32)
+    scrollunk7 = models.IntegerField()
+    clickname = models.CharField(max_length=64)
+    procname = models.CharField(max_length=64)
+    wornname = models.CharField(max_length=64)
+    focusname = models.CharField(max_length=64)
+    scrollname = models.CharField(max_length=64)
+    created = models.CharField(max_length=64)
+    bardeffect = models.SmallIntegerField()
+    bardeffecttype = models.SmallIntegerField()
+    bardlevel2 = models.SmallIntegerField()
+    bardlevel = models.SmallIntegerField()
+    bardunk1 = models.SmallIntegerField()
+    bardunk2 = models.SmallIntegerField()
+    bardunk3 = models.SmallIntegerField()
+    bardunk4 = models.SmallIntegerField()
+    bardunk5 = models.SmallIntegerField()
+    bardname = models.CharField(max_length=64)
+    bardunk7 = models.SmallIntegerField()
+    gmflag = models.IntegerField()
+    soulbound = models.IntegerField()
+
+    class Meta:
+        db_table = 'eq_items'
+        unique_together = (('id',), ('name',), ('lore',), ('minstatus',))
+        managed = False

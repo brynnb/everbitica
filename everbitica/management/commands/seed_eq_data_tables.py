@@ -14,12 +14,11 @@ docker exec -it 1d0 /bin/bash -c "mysql -u user_name -puser_password database_na
 
 everquest_data.sql was downloaded from the TAKP project here: https://github.com/EQMacEmu/Server/tree/main/utils/sql/database_full/
 
-It was then modified to remove comments since they were throwing errors when trying to import the data, but it's unclear if that would be needed with the import command in its current form
+This uses the "alkabor_2024-03-13-12_47.tar.gz" version of their database. There might need to be tweaks for outlier conditions if a different version is used and they've changed their schema.
+
+This SQL dump was also modified to remove comments since they were throwing errors when trying to import the data, but it's unclear if that would be needed with the import command in its current form
 
 """
-
-
-# very important TODO: disallow field names that end with underscore, for example "rand_condition_" in the spawngroup table. The application will break the second this process is run without this added logic
 
 class Command(BaseCommand):
     help = "Import EverQuest data"
@@ -47,7 +46,7 @@ class Command(BaseCommand):
             "char_create_combinations",
             "char_create_point_allocations",
             "faction_list",
-            "Items",
+            "items",
             "level_xp_mods",
             "lootdrop",
             "lootdrop_entries",
@@ -96,18 +95,22 @@ class Command(BaseCommand):
 
             if table_name in tables_to_keep:
 
-                # rename table and use replace function but only if it also includes the "`" characters
+                # rename table to group all the EQ data imports together
                 table = table.replace("`" + table_name + "`", "`eq_" + table_name + "`")
                 filtered_tables.append("CREATE TABLE " + table)
 
         # Join the tables back into a single string
         filtered_data = "\n".join(filtered_tables)
 
-        #Rename any field names that end with an underscore to the same minus the underscore
-        # filtered_data = re.sub(r"(\w+)_\s", r"\1 ", filtered_data)
-        # TODO: debug this when i need to run this again
+        # Django doesn't like underscores at end of field names, so handle a few outlier situations (~6 as of now)
+        filtered_data = re.sub(r"casttime_`", "casttime_2`", filtered_data)
+        filtered_data = re.sub(r"class_`", "class_2`", filtered_data)
+        filtered_data = re.sub(r"_(?=`)", "", filtered_data)
 
-        # Split the filtered_data into separate commands
+        filtered_data = re.sub(r"`\b_(\w+)", r"`\1", filtered_data) #remove underscores before field names too, we don't need them to avoid keyword conflicts
+
+
+        # Split the filtered_data into separate commands to prevent database timeouts
         commands = filtered_data.split(";\n")
 
         # Execute each command individually
