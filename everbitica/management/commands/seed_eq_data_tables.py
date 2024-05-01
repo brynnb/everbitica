@@ -19,6 +19,8 @@ It was then modified to remove comments since they were throwing errors when try
 """
 
 
+# very important TODO: disallow field names that end with underscore, for example "rand_condition_" in the spawngroup table. The application will break the second this process is run without this added logic
+
 class Command(BaseCommand):
     help = "Import EverQuest data"
 
@@ -100,6 +102,10 @@ class Command(BaseCommand):
 
         # Join the tables back into a single string
         filtered_data = "\n".join(filtered_tables)
+
+        #Rename any field names that end with an underscore to the same minus the underscore
+        # filtered_data = re.sub(r"(\w+)_\s", r"\1 ", filtered_data)
+        # TODO: debug this when i need to run this again
 
         # Split the filtered_data into separate commands
         commands = filtered_data.split(";\n")

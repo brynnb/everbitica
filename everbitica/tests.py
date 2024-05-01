@@ -18,28 +18,28 @@ class GetPartyMembersTest(TestCase):
             self.assertTrue("username" in member)
 
 
-class BooksModelTest(TestCase):
+class BookModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        Books.objects.create(name="Test Book", txtfile="Test content")
+        Book.objects.create(name="Test Book", txtfile="Test content")
 
     def test_name_label(self):
-        book = Books.objects.get(id=1)
+        book = Book.objects.get(id=1)
         field_label = book._meta.get_field("name").verbose_name
         self.assertEqual(field_label, "name")
 
     def test_name_max_length(self):
-        book = Books.objects.get(id=1)
+        book = Book.objects.get(id=1)
         max_length = book._meta.get_field("name").max_length
         self.assertEqual(max_length, 30)
 
     def test_object_name_is_name(self):
-        book = Books.objects.get(id=1)
+        book = Book.objects.get(id=1)
         expected_object_name = f"{book.name}"
         self.assertEqual(expected_object_name, str(book))
 
     def test_txtfile_label(self):
-        book = Books.objects.get(id=1)
+        book = Book.objects.get(id=1)
         field_label = book._meta.get_field("txtfile").verbose_name
         self.assertEqual(field_label, "txtfile")
 
@@ -48,22 +48,17 @@ class FactionModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         Faction.objects.create(
-            id=1,
-            name="Test Faction",
-            base=0,
-            see_illusion=True,
-            min_cap=0,
-            max_cap=0
+            id=1, name="Test Faction", base=0, see_illusion=True, min_cap=0, max_cap=0
         )
 
     def test_name_label(self):
         faction = Faction.objects.get(id=1)
-        field_label = faction._meta.get_field('name').verbose_name
-        self.assertEqual(field_label, 'name')
+        field_label = faction._meta.get_field("name").verbose_name
+        self.assertEqual(field_label, "name")
 
     def test_name_max_length(self):
         faction = Faction.objects.get(id=1)
-        max_length = faction._meta.get_field('name').max_length
+        max_length = faction._meta.get_field("name").max_length
         self.assertEqual(max_length, 50)
 
     def test_object_name_is_name(self):
@@ -73,77 +68,305 @@ class FactionModelTest(TestCase):
 
     def test_base_default(self):
         faction = Faction.objects.get(id=1)
-        default = faction._meta.get_field('base').default
+        default = faction._meta.get_field("base").default
         self.assertEqual(default, 0)
 
     def test_see_illusion_default(self):
         faction = Faction.objects.get(id=1)
-        default = faction._meta.get_field('see_illusion').default
+        default = faction._meta.get_field("see_illusion").default
         self.assertEqual(default, True)
 
     def test_min_cap_default(self):
         faction = Faction.objects.get(id=1)
-        default = faction._meta.get_field('min_cap').default
+        default = faction._meta.get_field("min_cap").default
         self.assertEqual(default, 0)
 
     def test_max_cap_default(self):
         faction = Faction.objects.get(id=1)
-        default = faction._meta.get_field('max_cap').default
+        default = faction._meta.get_field("max_cap").default
         self.assertEqual(default, 0)
 
 
 class LootdropModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        Lootdrop.objects.create(id=1, name='Test Lootdrop')
+        Lootdrop.objects.create(id=1, name="Test Lootdrop")
 
     def test_name_label(self):
         lootdrop = Lootdrop.objects.get(id=1)
-        field_label = lootdrop._meta.get_field('name').verbose_name
-        self.assertEqual(field_label, 'name')
+        field_label = lootdrop._meta.get_field("name").verbose_name
+        self.assertEqual(field_label, "name")
 
     def test_name_max_length(self):
         lootdrop = Lootdrop.objects.get(id=1)
-        max_length = lootdrop._meta.get_field('name').max_length
+        max_length = lootdrop._meta.get_field("name").max_length
         self.assertEqual(max_length, 255)
 
 
 class LootdropEntryModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        Lootdrop.objects.create(id=1, name='Test Lootdrop Entry')
+        Lootdrop.objects.create(id=1, name="Test Lootdrop Entry")
         LootdropEntry.objects.create(lootdrop_id=1, item_id=1)
 
     def test_item_id_label(self):
         entry = LootdropEntry.objects.get(id=1)
-        field_label = entry._meta.get_field('item_id').verbose_name
-        self.assertEqual(field_label, 'item id')
+        field_label = entry._meta.get_field("item_id").verbose_name
+        self.assertEqual(field_label, "item id")
 
 
 class LoottableModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        Loottable.objects.create(id=1, name='Test Loottable')
+        Loottable.objects.create(id=1, name="Test Loottable")
 
     def test_name_label(self):
         loottable = Loottable.objects.get(id=1)
-        field_label = loottable._meta.get_field('name').verbose_name
-        self.assertEqual(field_label, 'name')
+        field_label = loottable._meta.get_field("name").verbose_name
+        self.assertEqual(field_label, "name")
 
     def test_name_max_length(self):
         loottable = Loottable.objects.get(id=1)
-        max_length = loottable._meta.get_field('name').max_length
+        max_length = loottable._meta.get_field("name").max_length
         self.assertEqual(max_length, 255)
 
 
 class LoottableEntryModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        loottable = Loottable.objects.create(name='Test Loottable')
-        lootdrop = Lootdrop.objects.create(name='Test Lootdrop')
+        loottable = Loottable.objects.create(name="Test Loottable")
+        lootdrop = Lootdrop.objects.create(name="Test Lootdrop")
         LoottableEntry.objects.create(loottable=loottable, lootdrop=lootdrop)
 
     def test_loottable_label(self):
         entry = LoottableEntry.objects.get(id=1)
-        field_label = entry._meta.get_field('loottable').verbose_name
-        self.assertEqual(field_label, 'loottable')
+        field_label = entry._meta.get_field("loottable").verbose_name
+        self.assertEqual(field_label, "loottable")
+
+
+class ZoneModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        Zone.objects.create(
+            short_name="Test Zone",
+            long_name="This is a test zone",
+            id=1,
+            file_name="test_file",
+            map_file_name="test_map_file",
+            safe_x=0,
+            safe_y=0,
+            safe_z=0,
+            safe_heading=0,
+            graveyard_id=0,
+            min_level=0,
+            min_status=0,
+            zoneidnumber=0,
+            timezone=0,
+            maxclients=0,
+            ruleset=0,
+            note="Test note",
+            underworld=0,
+            minclip=450,
+            maxclip=450,
+            fog_minclip=450,
+            fog_maxclip=450,
+            fog_blue=0,
+            fog_red=0,
+            fog_green=0,
+            sky=1,
+            ztype=1,
+            zone_exp_multiplier=0.00,
+            gravity=0.4,
+            time_type=2,
+            fog_red1=0,
+            fog_green1=0,
+            fog_blue1=0,
+            fog_minclip1=450,
+            fog_maxclip1=450,
+            fog_red2=0,
+            fog_green2=0,
+            fog_blue2=0,
+            fog_minclip2=450,
+            fog_maxclip2=450,
+            fog_red3=0,
+            fog_green3=0,
+            fog_blue3=0,
+            fog_minclip3=450,
+            fog_maxclip3=450,
+            fog_red4=0,
+            fog_green4=0,
+            fog_blue4=0,
+            fog_minclip4=450,
+            fog_maxclip4=450,
+            fog_density=0,
+            flag_needed="",
+            canbind=1,
+            cancombat=1,
+            canlevitate=1,
+            castoutdoor=1,
+            hotzone=0,
+            shutdowndelay=5000,
+            peqzone=1,
+            expansion=0,
+            suspendbuffs=0,
+            rain_chance1=0,
+            rain_chance2=0,
+            rain_chance3=0,
+            rain_chance4=0,
+            rain_duration1=0,
+            rain_duration2=0,
+            rain_duration3=0,
+            rain_duration4=0,
+            snow_chance1=0,
+            snow_chance2=0,
+            snow_chance3=0,
+            snow_chance4=0,
+            snow_duration1=0,
+            snow_duration2=0,
+            snow_duration3=0,
+            snow_duration4=0,
+            type=0,
+            skylock=0,
+            skip_los=0,
+            music=0,
+            random_loc=3,
+            dragaggro=0,
+            never_idle=0,
+            castdungeon=0,
+            pull_limit=80,
+            graveyard_time=1,
+            max_z=10000,
+            min_expansion=-1,
+            max_expansion=-1,
+            content_flags="",
+            content_flags_disabled="",
+        )
+
+    def test_short_name_label(self):
+        eqzone = Zone.objects.get(id=1)
+        field_label = eqzone._meta.get_field("short_name").verbose_name
+        self.assertEqual(field_label, "short name")
+
+    def test_short_name_max_length(self):
+        eqzone = Zone.objects.get(id=1)
+        max_length = eqzone._meta.get_field("short_name").max_length
+        self.assertEqual(max_length, 32)
+
+    def test_long_name_label(self):
+        eqzone = Zone.objects.get(id=1)
+        field_label = eqzone._meta.get_field("long_name").verbose_name
+        self.assertEqual(field_label, "long name")
+
+    def test_file_name_label(self):
+        eqzone = Zone.objects.get(id=1)
+        field_label = eqzone._meta.get_field("file_name").verbose_name
+        self.assertEqual(field_label, "file name")
+
+    def test_file_name_max_length(self):
+        eqzone = Zone.objects.get(id=1)
+        max_length = eqzone._meta.get_field("file_name").max_length
+        self.assertEqual(max_length, 16)
+
+class RaceModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        Race.objects.create(name='Test Race', id=1, no_coin=False)
+
+    def test_name_label(self):
+        eqrace = Race.objects.get(id=1)
+        field_label = eqrace._meta.get_field('name').verbose_name
+        self.assertEqual(field_label, 'name')
+
+    def test_name_max_length(self):
+        eqrace = Race.objects.get(id=1)
+        max_length = eqrace._meta.get_field('name').max_length
+        self.assertEqual(max_length, 64)
+
+    def test_no_coin_label(self):
+        eqrace = Race.objects.get(id=1)
+        field_label = eqrace._meta.get_field('no_coin').verbose_name
+        self.assertEqual(field_label, 'no coin')
+
+
+class NpcTypeModelTest(TestCase):
+    def test_create_and_retrieve_eq_npc_types(self):
+        
+        npc = NpcType.objects.create(
+            name="Test NPC",
+            level=1,
+            race=1,
+            class_field=1,
+            hp=100,
+            mana=100,
+            gender=0,
+            size=1.0,
+            STR=75,
+            STA=75,
+            DEX=75,
+            AGI=75,
+            _INT=80,
+            WIS=75,
+            CHA=75,
+            ATK=0,
+            Accuracy=0,
+            maxlevel=1,
+            scalerate=100,
+            spellscale=100,
+            healscale=100,
+            light=0,
+            walkspeed=0.0,
+            combat_hp_regen=0,
+            combat_mana_regen=0,
+            aggro_pc=0,
+            ignore_distance=600,
+            encounter=0,
+            avoidance=0,
+            exp_pct=100,
+            greed=0,
+            engage_notice=0,
+            stuck_behavior=0,
+            flymode=-1,
+            skip_global_loot=0,
+            rare_spawn=0
+        )
+
+        same_npc = NpcType.objects.get(id=npc.id)
+
+        self.assertEqual(same_npc.name, "Test NPC")
+        self.assertEqual(same_npc.level, 1)
+        self.assertEqual(same_npc.race, 1)
+        self.assertEqual(same_npc.class_field, 1)
+        self.assertEqual(same_npc.hp, 100)
+        self.assertEqual(same_npc.mana, 100)
+        self.assertEqual(same_npc.gender, 0)
+        self.assertEqual(same_npc.size, 1.0)
+        self.assertEqual(same_npc.STR, 75)
+        self.assertEqual(same_npc.STA, 75)
+        self.assertEqual(same_npc.DEX, 75)
+        self.assertEqual(same_npc.AGI, 75)
+        self.assertEqual(same_npc._INT, 80)
+        self.assertEqual(same_npc.WIS, 75)
+        self.assertEqual(same_npc.CHA, 75)
+        self.assertEqual(same_npc.ATK, 0)
+        self.assertEqual(same_npc.Accuracy, 0)
+        self.assertEqual(same_npc.maxlevel, 1)
+        self.assertEqual(same_npc.scalerate, 100)
+        self.assertEqual(same_npc.spellscale, 100)
+        self.assertEqual(same_npc.healscale, 100)
+        self.assertEqual(same_npc.light, 0)
+        self.assertEqual(same_npc.walkspeed, 0.0)
+        self.assertEqual(same_npc.combat_hp_regen, 0)
+        self.assertEqual(same_npc.combat_mana_regen, 0)
+        self.assertEqual(same_npc.aggro_pc, 0)
+        self.assertEqual(same_npc.ignore_distance, 600)
+        self.assertEqual(same_npc.encounter, 0)
+        self.assertEqual(same_npc.avoidance, 0)
+        self.assertEqual(same_npc.exp_pct, 100)
+        self.assertEqual(same_npc.greed, 0)
+        self.assertEqual(same_npc.engage_notice, 0)
+        self.assertEqual(same_npc.stuck_behavior, 0)
+        self.assertEqual(same_npc.flymode, -1)
+        self.assertEqual(same_npc.skip_global_loot, 0)
+        self.assertEqual(same_npc.rare_spawn, 0)
+
+
