@@ -3,6 +3,7 @@ services:
     image: mariadb:10.5.8
     volumes:
       - ./data/db:/var/lib/mysql
+      - ./devassets:/devassets
     environment:
       - MYSQL_DATABASE=database_name
       - MYSQL_USER=user_name

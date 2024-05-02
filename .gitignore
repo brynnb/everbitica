@@ -5,6 +5,8 @@ __pycache__
 .vscode
 content.json
 view_data.json
+frontend/node_modules
+
 
 ### macOS ###
 # General

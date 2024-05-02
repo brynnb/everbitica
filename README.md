@@ -24,7 +24,9 @@ docker-compose exec web python manage.py migrate
 
 docker-compose exec web python manage.py seed_eq_data_tables
 
-docker-compose exec web python manage.py seed_playerclass
+docker-compose exec web python manage.py seed_additional_eq_data
+
+<!-- docker-compose exec web python manage.py seed_playerclass -->
 
 #### Tests
 
@@ -37,9 +39,6 @@ Changes to requirements.txt to add libraries requires:
 1. docker-compose build
 2. docker-compose up
 
-#### Importing Spells
-
-The spells text file comes from Project1999 downloads. The headings for this CSV come from `Server/common/repositories/base/base_spells_new_repository.h` in https://github.com/EQEmu/Server/ ([direct link to code](https://github.com/EQEmu/Server/blob/82aa6a1587477e642e7ac44e7902f4568bb8563e/common/repositories/base/base_spells_new_repository.h#L19))
 
 ### To-Do
 

@@ -97,7 +97,9 @@ class Lootdrop(models.Model):
 
 class LootdropEntry(models.Model):
     lootdrop = models.ForeignKey(Lootdrop, on_delete=models.CASCADE)
-    item = models.ForeignKey('Item', on_delete=models.CASCADE, db_column='item_id', default=0)
+    item = models.ForeignKey(
+        "Item", on_delete=models.CASCADE, db_column="item_id", default=0
+    )
     item_charges = models.SmallIntegerField(default=1)
     equip_item = models.SmallIntegerField(default=0)
     chance = models.FloatField(default=1)
@@ -140,8 +142,9 @@ class LoottableEntry(models.Model):
 
     class Meta:
         db_table = "eq_loottable_entries"
-        unique_together = (("loottable", "lootdrop"),) #TODO: needed, maybe bad?
+        unique_together = (("loottable", "lootdrop"),)  # TODO: needed, maybe bad?
         managed = False
+
 
 class Zone(models.Model):
     short_name = models.CharField(max_length=32, null=True, blank=True)
@@ -171,7 +174,9 @@ class Zone(models.Model):
     fog_green = models.PositiveSmallIntegerField(default=0)
     sky = models.PositiveSmallIntegerField(default=1)
     ztype = models.PositiveSmallIntegerField(default=1)
-    zone_exp_multiplier = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+    zone_exp_multiplier = models.DecimalField(
+        max_digits=6, decimal_places=2, default=0.00
+    )
     gravity = models.FloatField(default=0.4)
     time_type = models.PositiveSmallIntegerField(default=2)
     fog_red1 = models.PositiveSmallIntegerField(default=0)
@@ -195,7 +200,7 @@ class Zone(models.Model):
     fog_minclip4 = models.FloatField(default=450)
     fog_maxclip4 = models.FloatField(default=450)
     fog_density = models.FloatField(default=0)
-    flag_needed = models.CharField(max_length=128, default='')
+    flag_needed = models.CharField(max_length=128, default="")
     canbind = models.SmallIntegerField(default=1)
     cancombat = models.SmallIntegerField(default=1)
     canlevitate = models.SmallIntegerField(default=1)
@@ -239,22 +244,29 @@ class Zone(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=['zoneidnumber',]),
-            models.Index(fields=['short_name',]),
+            models.Index(
+                fields=[
+                    "zoneidnumber",
+                ]
+            ),
+            models.Index(
+                fields=[
+                    "short_name",
+                ]
+            ),
         ]
-        db_table = 'eq_zone'
+        db_table = "eq_zone"
         managed = False
 
 
 class Race(models.Model):
-    name = models.CharField(max_length=64, primary_key=True, default='')
+    name = models.CharField(max_length=64, primary_key=True, default="")
     id = models.IntegerField(default=0)
     no_coin = models.BooleanField(default=False)
 
     class Meta:
-        db_table = 'eq_races'
+        db_table = "eq_races"
         managed = False
-
 
 
 class NpcType(models.Model):
@@ -263,7 +275,7 @@ class NpcType(models.Model):
     lastname = models.CharField(max_length=32, null=True, blank=True)
     level = models.PositiveSmallIntegerField(default=0)
     race = models.PositiveSmallIntegerField(default=0)
-    class_field = models.PositiveSmallIntegerField(default=0, db_column='class')
+    class_field = models.PositiveSmallIntegerField(default=0, db_column="class")
     bodytype = models.IntegerField(default=1)
     hp = models.IntegerField(default=0)
     mana = models.IntegerField(default=0)
@@ -317,7 +329,7 @@ class NpcType(models.Model):
     STA = models.PositiveIntegerField(default=75)
     DEX = models.PositiveIntegerField(default=75)
     AGI = models.PositiveIntegerField(default=75)
-    _INT = models.PositiveIntegerField(default=80, db_column='_INT')
+    _INT = models.PositiveIntegerField(default=80, db_column="_INT")
     WIS = models.PositiveIntegerField(default=75)
     CHA = models.PositiveIntegerField(default=75)
     see_sneak = models.PositiveSmallIntegerField(default=0)
@@ -359,9 +371,8 @@ class NpcType(models.Model):
     rare_spawn = models.PositiveSmallIntegerField(default=0)
 
     class Meta:
-        db_table = 'eq_npc_types'
+        db_table = "eq_npc_types"
         managed = False
-
 
 
 class Spawn(models.Model):
@@ -388,10 +399,10 @@ class Spawn(models.Model):
     content_flags = models.CharField(max_length=100, null=True, blank=True)
     content_flags_disabled = models.CharField(max_length=100, null=True, blank=True)
 
-
     class Meta:
-        db_table = 'eq_spawn2'
+        db_table = "eq_spawn2"
         managed = False
+
 
 class Spawnentry(models.Model):
     spawngroupID = models.IntegerField(default=0, primary_key=True)
@@ -404,14 +415,14 @@ class Spawnentry(models.Model):
     content_flags = models.CharField(max_length=100, null=True, blank=True)
     content_flags_disabled = models.CharField(max_length=100, null=True, blank=True)
 
-
     class Meta:
-        db_table = 'eq_spawnentry'
+        db_table = "eq_spawnentry"
         managed = False
+
 
 class Spawngroup(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50, default='', unique=True)
+    name = models.CharField(max_length=50, default="", unique=True)
     spawn_limit = models.SmallIntegerField(default=0)
     max_x = models.FloatField(default=0.0)
     min_x = models.FloatField(default=0.0)
@@ -428,7 +439,7 @@ class Spawngroup(models.Model):
     wp_spawns = models.PositiveSmallIntegerField(default=0)
 
     class Meta:
-        db_table = 'eq_spawngroup'
+        db_table = "eq_spawngroup"
         managed = False
 
 
@@ -589,6 +600,221 @@ class Item(models.Model):
     soulbound = models.IntegerField()
 
     class Meta:
-        db_table = 'eq_items'
-        unique_together = (('id',), ('name',), ('lore',), ('minstatus',))
+        db_table = "eq_items"
+        unique_together = (("id",), ("name",), ("lore",), ("minstatus",))
         managed = False
+
+
+class CharacterClass(models.Model):
+    id = models.IntegerField(primary_key=True)
+    bitmask = models.IntegerField(null=True)
+    name = models.CharField(max_length=50)
+    spell_list_id = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        db_table = "eq_classes"
+
+
+
+
+class Spell(models.Model):
+    id = models.IntegerField(primary_key=True, default=0)
+    name = models.CharField(max_length=64, null=True)
+    player_1 = models.CharField(max_length=64, default='BLUE_TRAIL')
+    teleport_zone = models.CharField(max_length=64, null=True)
+    you_cast = models.CharField(max_length=120, null=True)
+    other_casts = models.CharField(max_length=120, null=True)
+    cast_on_you = models.CharField(max_length=120, null=True)
+    cast_on_other = models.CharField(max_length=120, null=True)
+    spell_fades = models.CharField(max_length=120, null=True)
+    range = models.IntegerField(default=100)
+    aoerange = models.IntegerField(default=0)
+    pushback = models.FloatField(default=0.00)
+    pushup = models.FloatField(default=0.00)
+    cast_time = models.IntegerField(default=0)
+    recovery_time = models.IntegerField(default=0)
+    recast_time = models.IntegerField(default=0)
+    buffdurationformula = models.IntegerField(default=7)
+    buffduration = models.IntegerField(default=65)
+    AEDuration = models.IntegerField(default=0)
+    mana = models.IntegerField(default=0)
+    effect_base_value1 = models.IntegerField(default=100)
+    effect_base_value2 = models.IntegerField(default=0)
+    effect_base_value3 = models.IntegerField(default=0)
+    effect_base_value4 = models.IntegerField(default=0)
+    effect_base_value5 = models.IntegerField(default=0)
+    effect_base_value6 = models.IntegerField(default=0)
+    effect_base_value7 = models.IntegerField(default=0)
+    effect_base_value8 = models.IntegerField(default=0)
+    effect_base_value9 = models.IntegerField(default=0)
+    effect_base_value10 = models.IntegerField(default=0)
+    effect_base_value11 = models.IntegerField(default=0)
+    effect_base_value12 = models.IntegerField(default=0)
+    effect_limit_value1 = models.IntegerField(default=0)
+    effect_limit_value2 = models.IntegerField(default=0)
+    effect_limit_value3 = models.IntegerField(default=0)
+    effect_limit_value4 = models.IntegerField(default=0)
+    effect_limit_value5 = models.IntegerField(default=0)
+    effect_limit_value6 = models.IntegerField(default=0)
+    effect_limit_value7 = models.IntegerField(default=0)
+    effect_limit_value8 = models.IntegerField(default=0)
+    effect_limit_value9 = models.IntegerField(default=0)
+    effect_limit_value10 = models.IntegerField(default=0)
+    effect_limit_value11 = models.IntegerField(default=0)
+    effect_limit_value12 = models.IntegerField(default=0)
+    max1 = models.IntegerField(default=0)
+    max2 = models.IntegerField(default=0)
+    max3 = models.IntegerField(default=0)
+    max4 = models.IntegerField(default=0)
+    max5 = models.IntegerField(default=0)
+    max6 = models.IntegerField(default=0)
+    max7 = models.IntegerField(default=0)
+    max8 = models.IntegerField(default=0)
+    max9 = models.IntegerField(default=0)
+    max10 = models.IntegerField(default=0)
+    max11 = models.IntegerField(default=0)
+    max12 = models.IntegerField(default=0)
+    icon = models.IntegerField(default=0)
+    memicon = models.IntegerField(default=0)
+    components1 = models.IntegerField(default=-1)
+    components2 = models.IntegerField(default=-1)
+    components3 = models.IntegerField(default=-1)
+    components4 = models.IntegerField(default=-1)
+    component_counts1 = models.IntegerField(default=1)
+    component_counts2 = models.IntegerField(default=1)
+    component_counts3 = models.IntegerField(default=1)
+    component_counts4 = models.IntegerField(default=1)
+    NoexpendReagent1 = models.IntegerField(default=-1)
+    NoexpendReagent2 = models.IntegerField(default=-1)
+    NoexpendReagent3 = models.IntegerField(default=-1)
+    NoexpendReagent4 = models.IntegerField(default=-1)
+    formula1 = models.IntegerField(default=100)
+    formula2 = models.IntegerField(default=100)
+    formula3 = models.IntegerField(default=100)
+    formula4 = models.IntegerField(default=100)
+    formula5 = models.IntegerField(default=100)
+    formula6 = models.IntegerField(default=100)
+    formula7 = models.IntegerField(default=100)
+    formula8 = models.IntegerField(default=100)
+    formula9 = models.IntegerField(default=100)
+    formula10 = models.IntegerField(default=100)
+    formula11 = models.IntegerField(default=100)
+    formula12 = models.IntegerField(default=100)
+    LightType = models.IntegerField(default=0)
+    goodEffect = models.IntegerField(default=0)
+    Activated = models.IntegerField(default=0)
+    resisttype = models.IntegerField(default=0)
+    effectid1 = models.IntegerField(default=254)
+    effectid2 = models.IntegerField(default=254)
+    effectid3 = models.IntegerField(default=254)
+    effectid4 = models.IntegerField(default=254)
+    effectid5 = models.IntegerField(default=254)
+    effectid6 = models.IntegerField(default=254)
+    effectid7 = models.IntegerField(default=254)
+    effectid8 = models.IntegerField(default=254)
+    effectid9 = models.IntegerField(default=254)
+    effectid10 = models.IntegerField(default=254)
+    effectid11 = models.IntegerField(default=254)
+    effectid12 = models.IntegerField(default=254)
+    targettype = models.IntegerField(default=2)
+    basediff = models.IntegerField(default=0)
+    skill = models.IntegerField(default=98)
+    zonetype = models.IntegerField(default=-1)
+    EnvironmentType = models.IntegerField(default=0)
+    TimeOfDay = models.IntegerField(default=0)
+    classes1 = models.IntegerField(default=255)
+    classes2 = models.IntegerField(default=255)
+    classes3 = models.IntegerField(default=255)
+    classes4 = models.IntegerField(default=255)
+    classes5 = models.IntegerField(default=255)
+    classes6 = models.IntegerField(default=255)
+    classes7 = models.IntegerField(default=255)
+    classes8 = models.IntegerField(default=255)
+    classes9 = models.IntegerField(default=255)
+    classes10 = models.IntegerField(default=255)
+    classes11 = models.IntegerField(default=255)
+    classes12 = models.IntegerField(default=255)
+    classes13 = models.IntegerField(default=255)
+    classes14 = models.IntegerField(default=255)
+    classes15 = models.IntegerField(default=255)
+    CastingAnim = models.IntegerField(default=44)
+    TargetAnim = models.IntegerField(default=13)
+    TravelType = models.IntegerField(default=0)
+    SpellAffectIndex = models.IntegerField(default=-1)
+    disallow_sit = models.IntegerField(default=0)
+    deities0 = models.IntegerField(default=0)
+    deities1 = models.IntegerField(default=0)
+    deities2 = models.IntegerField(default=0)
+    deities3 = models.IntegerField(default=0)
+    deities4 = models.IntegerField(default=0)
+    deities5 = models.IntegerField(default=0)
+    deities6 = models.IntegerField(default=0)
+    deities7 = models.IntegerField(default=0)
+    deities8 = models.IntegerField(default=0)
+    deities9 = models.IntegerField(default=0)
+    deities10 = models.IntegerField(default=0)
+    deities11 = models.IntegerField(default=0)
+    deities12 = models.IntegerField(default=0)
+    deities13 = models.IntegerField(default=0)
+    deities14 = models.IntegerField(default=0)
+    deities15 = models.IntegerField(default=0)
+    deities16 = models.IntegerField(default=0)
+    npc_no_cast = models.IntegerField(default=0)
+    ai_pt_bonus = models.IntegerField(default=0)
+    new_icon = models.IntegerField(default=161)
+    spellanim = models.IntegerField(default=0)
+    uninterruptable = models.IntegerField(default=0)
+    ResistDiff = models.IntegerField(default=-150)
+    dot_stacking_exempt = models.IntegerField(default=0)
+    deleteable = models.IntegerField(default=0)
+    RecourseLink = models.IntegerField(default=0)
+    no_partial_resist = models.IntegerField(default=0)
+    small_targets_only = models.IntegerField(default=0)
+    use_persistent_particles = models.IntegerField(default=0)
+    short_buff_box = models.IntegerField(default=-1)
+    descnum = models.IntegerField(default=0)
+    typedescnum = models.IntegerField(null=True)
+    effectdescnum = models.IntegerField(null=True)
+    effectdescnum2 = models.IntegerField(default=0)
+    npc_no_los = models.IntegerField(default=0)
+    reflectable = models.IntegerField(default=0)
+    resist_per_level = models.IntegerField(default=0)
+    resist_cap = models.IntegerField(default=0)
+    EndurCost = models.IntegerField(default=0)
+    EndurTimerIndex = models.IntegerField(default=0)
+    IsDiscipline = models.IntegerField(default=0)
+    HateAdded = models.IntegerField(default=0)
+    EndurUpkeep = models.IntegerField(default=0)
+    pvpresistbase = models.IntegerField(default=-150)
+    pvpresistcalc = models.IntegerField(default=100)
+    pvpresistcap = models.IntegerField(default=-150)
+    spell_category = models.IntegerField(default=-99)
+    pvp_duration = models.IntegerField(default=0)
+    pvp_duration_cap = models.IntegerField(default=0)
+    cast_not_standing = models.IntegerField(default=0)
+    can_mgb = models.IntegerField(default=0)
+    nodispell = models.IntegerField(default=-1)
+    npc_category = models.IntegerField(default=0)
+    npc_usefulness = models.IntegerField(default=0)
+    wear_off_message = models.IntegerField(default=0)
+    suspendable = models.IntegerField(default=0)
+    spellgroup = models.IntegerField(default=0)
+    allow_spellscribe = models.IntegerField(default=0)
+    allowrest = models.IntegerField(default=0)
+    custom_icon = models.IntegerField(default=0)
+    not_player_spell = models.IntegerField(default=0)
+    disabled = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = "eq_spells_new"
+        managed = False
+
+
+from django.db import models
+
+class Deity(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        db_table = "eq_deities"

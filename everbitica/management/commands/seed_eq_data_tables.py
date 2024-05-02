@@ -10,7 +10,7 @@ As a backup if this doesn't work or becomes buggy:
 
 Copy and paste the devassets/everquest_data.sql to your docker container, somewhere like "/tmp", then:
 
-docker exec -it 1d0 /bin/bash -c "mysql -u user_name -puser_password database_name < /tmp/everquest_data.sql" 
+docker exec -it everbitica-db-1 /bin/bash -c "mysql -u user_name -puser_password database_name < /devassets/everquest_data.sql" 
 
 everquest_data.sql was downloaded from the TAKP project here: https://github.com/EQMacEmu/Server/tree/main/utils/sql/database_full/
 
