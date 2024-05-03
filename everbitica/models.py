@@ -6,23 +6,6 @@ def __str__(self):
     return self.name
 
 
-class PlayerClass(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    is_playable = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.name
-
-
-class ArmorType(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-
-    def __str__(self):
-        return self.name
-
-
 class Book(models.Model):
     name = models.CharField(max_length=30, unique=True, default="")
     txtfile = models.TextField()
@@ -615,8 +598,6 @@ class CharacterClass(models.Model):
         db_table = "eq_classes"
 
 
-
-
 class Spell(models.Model):
     id = models.IntegerField(primary_key=True, default=0)
     name = models.CharField(max_length=64, null=True)
@@ -808,9 +789,6 @@ class Spell(models.Model):
     class Meta:
         db_table = "eq_spells_new"
         managed = False
-
-
-from django.db import models
 
 class Deity(models.Model):
     id = models.IntegerField(primary_key=True)

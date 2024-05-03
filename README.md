@@ -18,15 +18,15 @@ docker-compose exec web python manage.py shell
 
 #### Setup, Migrating, and Seeding
 
+EQ seeding needs to happen first so that it doesn't wipe out eq_ prefixed tables from Django migrations:
+
+docker-compose exec web python manage.py seed_eq_data_tables 
+
 docker-compose exec web python manage.py makemigrations
 
 docker-compose exec web python manage.py migrate
 
-docker-compose exec web python manage.py seed_eq_data_tables
-
 docker-compose exec web python manage.py seed_additional_eq_data
-
-<!-- docker-compose exec web python manage.py seed_playerclass -->
 
 #### Tests
 

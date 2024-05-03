@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.http import JsonResponse
 
 from habitica import *
-from .models import PlayerClass
 import requests
 import os
 import habitica
