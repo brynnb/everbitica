@@ -28,6 +28,10 @@ docker-compose exec web python manage.py migrate
 
 docker-compose exec web python manage.py seed_additional_eq_data
 
+Alternatively, to seed all EQ tables for research or whatever: 
+
+docker exec -it everbitica-db-1 /bin/bash -c "mysql -u user_name -puser_password database_name < /devassets/everquest_data.sql" 
+
 #### Tests
 
 docker-compose exec web python manage.py test

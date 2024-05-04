@@ -796,3 +796,175 @@ class Deity(models.Model):
 
     class Meta:
         db_table = "eq_deities"
+
+class CharacterData(models.Model):
+    id = models.AutoField(primary_key=True)
+    account_id = models.IntegerField(default=0)
+    forum_id = models.IntegerField(default=0)
+    name = models.CharField(max_length=64, unique=True)
+    last_name = models.CharField(max_length=64, default='')
+    title = models.CharField(max_length=32, default='')
+    suffix = models.CharField(max_length=32, default='')
+    zone_id = models.IntegerField(default=0)
+    y = models.FloatField(default=0)
+    x = models.FloatField(default=0)
+    z = models.FloatField(default=0)
+    heading = models.FloatField(default=0)
+    gender = models.PositiveSmallIntegerField(default=0)
+    race = models.PositiveSmallIntegerField(default=0)
+    class_field = models.PositiveSmallIntegerField(default=0, db_column='class')
+    level = models.PositiveIntegerField(default=0)
+    deity = models.PositiveIntegerField(default=0)
+    birthday = models.PositiveIntegerField(default=0)
+    last_login = models.PositiveIntegerField(default=0)
+    time_played = models.PositiveIntegerField(default=0)
+    level2 = models.PositiveSmallIntegerField(default=0)
+    anon = models.PositiveSmallIntegerField(default=0)
+    gm = models.PositiveSmallIntegerField(default=0)
+    face = models.PositiveIntegerField(default=0)
+    hair_color = models.PositiveSmallIntegerField(default=0)
+    hair_style = models.PositiveSmallIntegerField(default=0)
+    beard = models.PositiveSmallIntegerField(default=0)
+    beard_color = models.PositiveSmallIntegerField(default=0)
+    eye_color_1 = models.PositiveSmallIntegerField(default=0)
+    eye_color_2 = models.PositiveSmallIntegerField(default=0)
+    exp = models.PositiveIntegerField(default=0)
+    aa_points_spent = models.PositiveIntegerField(default=0)
+    aa_exp = models.PositiveIntegerField(default=0)
+    aa_points = models.PositiveIntegerField(default=0)
+    points = models.PositiveIntegerField(default=0)
+    cur_hp = models.PositiveIntegerField(default=0)
+    mana = models.PositiveIntegerField(default=0)
+    endurance = models.PositiveIntegerField(default=0)
+    intoxication = models.PositiveIntegerField(default=0)
+    str = models.PositiveIntegerField(default=0)
+    sta = models.PositiveIntegerField(default=0)
+    cha = models.PositiveIntegerField(default=0)
+    dex = models.PositiveIntegerField(default=0)
+    int = models.PositiveIntegerField(default=0, db_column='int')
+    agi = models.PositiveIntegerField(default=0)
+    wis = models.PositiveIntegerField(default=0)
+    zone_change_count = models.PositiveIntegerField(default=0)
+    hunger_level = models.PositiveIntegerField(default=0)
+    thirst_level = models.PositiveIntegerField(default=0)
+    pvp_status = models.PositiveSmallIntegerField(default=0)
+    air_remaining = models.PositiveIntegerField(default=0)
+    autosplit_enabled = models.PositiveIntegerField(default=0)
+    mailkey = models.CharField(max_length=16, default='')
+    firstlogon = models.PositiveSmallIntegerField(default=0)
+    e_aa_effects = models.PositiveIntegerField(default=0)
+    e_percent_to_aa = models.PositiveIntegerField(default=0)
+    e_expended_aa_spent = models.PositiveIntegerField(default=0)
+    boatid = models.PositiveIntegerField(default=0)
+    boatname = models.CharField(max_length=25, null=True)
+    famished = models.IntegerField(default=0)
+    is_deleted = models.PositiveSmallIntegerField(default=0)
+    showhelm = models.PositiveSmallIntegerField(default=1)
+    fatigue = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = "eq_character_data"
+
+
+class CharacterCurrency(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
+    platinum = models.PositiveIntegerField(default=0)
+    gold = models.PositiveIntegerField(default=0)
+    silver = models.PositiveIntegerField(default=0)
+    copper = models.PositiveIntegerField(default=0)
+    platinum_bank = models.PositiveIntegerField(default=0)
+    gold_bank = models.PositiveIntegerField(default=0)
+    silver_bank = models.PositiveIntegerField(default=0)
+    copper_bank = models.PositiveIntegerField(default=0)
+    platinum_cursor = models.PositiveIntegerField(default=0)
+    gold_cursor = models.PositiveIntegerField(default=0)
+    silver_cursor = models.PositiveIntegerField(default=0)
+    copper_cursor = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        db_table = "eq_character_currency"
+
+
+class CharacterFactionValues(models.Model):
+    id = models.PositiveIntegerField(default=0)
+    faction_id = models.PositiveSmallIntegerField(default=0)
+    current_value = models.SmallIntegerField(default=0)
+    temp = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        db_table = "eq_character_faction_values"
+        unique_together = (("id", "faction_id"),)
+
+
+class CharacterInventory(models.Model):
+    id = models.PositiveIntegerField(default=0)
+    slotid = models.PositiveIntegerField(default=0)
+    itemid = models.PositiveIntegerField(default=0, null=True)
+    charges = models.PositiveSmallIntegerField(default=0)
+    custom_data = models.TextField(null=True)
+    serialnumber = models.PositiveIntegerField(default=0)
+    initialserial = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        db_table = "eq_character_inventory"
+        unique_together = (("id", "slotid"),)
+
+
+class CharacterSkills(models.Model):
+    id = models.AutoField(primary_key=True)
+    skill_id = models.PositiveSmallIntegerField(default=0)
+    value = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        db_table = "eq_character_skills"
+        unique_together = (("id", "skill_id"),)
+
+class CharacterSpells(models.Model):
+    id = models.AutoField(primary_key=True)
+    slot_id = models.PositiveSmallIntegerField(default=0)
+    spell_id = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        db_table = "eq_character_spells"
+        unique_together = (("id", "slot_id"),)
+
+class CharacterMemmedSpells(models.Model):
+    id = models.PositiveIntegerField(default=0)
+    slot_id = models.PositiveSmallIntegerField(default=0)
+    spell_id = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        db_table = "eq_character_memmed_spells"
+        unique_together = (("id", "slot_id"),)
+
+
+class CharacterBuffs(models.Model):
+    id = models.PositiveIntegerField(default=0)
+    slot_id = models.PositiveSmallIntegerField()
+    spell_id = models.PositiveSmallIntegerField()
+    caster_level = models.PositiveSmallIntegerField()
+    caster_name = models.CharField(max_length=64)
+    ticsremaining = models.PositiveIntegerField()
+    counters = models.PositiveIntegerField()
+    melee_rune = models.PositiveIntegerField()
+    magic_rune = models.PositiveIntegerField()
+    persistent = models.PositiveSmallIntegerField()
+    ExtraDIChance = models.IntegerField(default=0)
+    bard_modifier = models.PositiveSmallIntegerField(default=10)
+    bufftype = models.IntegerField()
+
+    class Meta:
+        db_table = "eq_character_buffs"
+        unique_together = (("id", "slot_id"),)
+
+
+class MerchantInventory(models.Model):
+    npcid = models.PositiveIntegerField(default=0)
+    slot = models.PositiveSmallIntegerField(default=0)
+    itemid = models.PositiveIntegerField(default=0)
+    charges = models.PositiveIntegerField(default=1)
+    quantity = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        db_table = "eq_merchant_inventory"
+        unique_together = (("npcid", "slot"),)
