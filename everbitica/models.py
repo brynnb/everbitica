@@ -599,7 +599,7 @@ class CharacterClass(models.Model):
 
 
 class Spell(models.Model):
-    id = models.IntegerField(primary_key=True, default=0)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=64, null=True)
     player_1 = models.CharField(max_length=64, default='BLUE_TRAIL')
     teleport_zone = models.CharField(max_length=64, null=True)
@@ -791,7 +791,7 @@ class Spell(models.Model):
         managed = False
 
 class Deity(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
 
     class Meta:
@@ -867,7 +867,7 @@ class CharacterData(models.Model):
 
 
 class CharacterCurrency(models.Model):
-    id = models.PositiveIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     platinum = models.PositiveIntegerField(default=0)
     gold = models.PositiveIntegerField(default=0)
     silver = models.PositiveIntegerField(default=0)
@@ -886,7 +886,7 @@ class CharacterCurrency(models.Model):
 
 
 class CharacterFactionValues(models.Model):
-    id = models.PositiveIntegerField(default=0)
+    id = models.AutoField(primary_key=True)
     faction_id = models.PositiveSmallIntegerField(default=0)
     current_value = models.SmallIntegerField(default=0)
     temp = models.PositiveSmallIntegerField(default=0)
@@ -897,7 +897,7 @@ class CharacterFactionValues(models.Model):
 
 
 class CharacterInventory(models.Model):
-    id = models.PositiveIntegerField(default=0)
+    id = models.AutoField(primary_key=True)
     slotid = models.PositiveIntegerField(default=0)
     itemid = models.PositiveIntegerField(default=0, null=True)
     charges = models.PositiveSmallIntegerField(default=0)
@@ -929,7 +929,7 @@ class CharacterSpells(models.Model):
         unique_together = (("id", "slot_id"),)
 
 class CharacterMemmedSpells(models.Model):
-    id = models.PositiveIntegerField(default=0)
+    id = models.AutoField(primary_key=True)
     slot_id = models.PositiveSmallIntegerField(default=0)
     spell_id = models.PositiveSmallIntegerField(default=0)
 
@@ -939,7 +939,7 @@ class CharacterMemmedSpells(models.Model):
 
 
 class CharacterBuffs(models.Model):
-    id = models.PositiveIntegerField(default=0)
+    id = models.AutoField(primary_key=True)
     slot_id = models.PositiveSmallIntegerField()
     spell_id = models.PositiveSmallIntegerField()
     caster_level = models.PositiveSmallIntegerField()
@@ -959,6 +959,7 @@ class CharacterBuffs(models.Model):
 
 
 class MerchantInventory(models.Model):
+    id = models.AutoField(primary_key=True)
     npcid = models.PositiveIntegerField(default=0)
     slot = models.PositiveSmallIntegerField(default=0)
     itemid = models.PositiveIntegerField(default=0)
