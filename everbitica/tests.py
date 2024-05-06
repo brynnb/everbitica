@@ -7,11 +7,11 @@ from django.core.management import call_command
 
 
 class ItemModelTest(TestCase):
-    
     @classmethod
-    def setUpTestData(cls):
+    def setUpClass(cls):
         call_command('seed_eq_data_tables')
         call_command('seed_additional_eq_data')
+        super().setUpClass()
 
     def test_item_creation(self):
         item = Item.objects.get(id=1001)
@@ -33,7 +33,7 @@ class TestEQFeatures(TestCase):
         #add 8 spells to the character
         spells = Spell.objects.all().order_by('?')[:8]
         for spell in spells:
-            CharacterSpells.objects.create(character=cls.character, spell=spell)
+            CharacterSpell.objects.create(character_data=cls.character, spell=spell)
 
     
 

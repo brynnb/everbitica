@@ -4,7 +4,7 @@ from everbitica.models import *
 
 class Command(BaseCommand):
     """
-    A Django management command to seed the database with additional EQ data that isn't in the original SQL import. 
+    Seeds the database with additional EQ data that isn't in the original SQL import. 
     This data includes info such as character classes and deities which is hardcoded into the original EQ client and isn't explicitly labeled in the database, at least not that I can tell
     """
 

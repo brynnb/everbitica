@@ -4,17 +4,17 @@
 
 This is an alternative interface for Habitica based on the GUI from the classic EverQuest client circa ~1999. I'm working on this project because I really enjoy Habitica and use it daily but also have a lot of nostalgia for Everquest. The richness of spells/skills/items/tradeskills available in the EverQuest universe will provide a lot more incentive/reward/progress than base Habitica by itself, which runs out of most content after around three months.
 
-This project's use of EverQuest images and text falls under [Fair Use](https://en.wikipedia.org/wiki/Fair_use) because this project is both commentary and parody by contrasting the completely useless time-suck of EverQuest with the productive and life-enriching habits tracked and encouraged by Habitica. It will also never generate income of any sort and generally has zero impact on the value and operation of the EverQuest franchise by its current owners.
-
 This alternative interface is a stand-alone Django web application and doesn't integrate directly with Habitica aside from API calls.
 
 ### Dev
 
-Run `docker "everbitica"` - there's a container for serving web app and one for postgres.
+Run `docker "everbitica"` - there's a container for serving the web app and another for the database.
 
 Running `docker ps` in terminal can verify these are running.
 
 `docker-compose exec web python manage.py shell` to dabble with docker shell
+
+Change "OFFLINE_MODE" to True in the .env (or index function of views.py) to make the page load much faster (useful for when editting HTML/CSS) while retaining presentation of cached data. Habitica API requests are notoriously slow and make page loads several seconds.
 
 #### Setup, Migrating, and Seeding
 
@@ -52,6 +52,7 @@ Changes to requirements.txt to add libraries requires:
   - Auto-nuke
   - Auto quest accept
   - Auto chat pending boss damage
+  - Auto-cron at cron time (to make player vs boss damage happen sooner than later)
 - Multi-nuke option
 - Test for bugs when not in a party
 - Lots more
@@ -67,4 +68,9 @@ Changes to requirements.txt to add libraries requires:
 
 ### Notes
 
+- This project uses MariaDB instead of the Postgres default because the original EQEmulator data dump is from a MySQL database (for which MariaDB is a drop-in replacement)
 - NPC attack rate should be 3 seconds for everything under level 25. This is good enough for me for this project. It's maybe only Kunark where it even changes after level 25.
+
+### License
+
+This project's use of EverQuest images and text falls under [Fair Use](https://en.wikipedia.org/wiki/Fair_use) because this project is both commentary and parody by contrasting the completely useless time-suck of EverQuest with the productive and life-enriching habits tracked and encouraged by Habitica. It will also never generate income of any sort and generally has zero impact on the value and operation of the EverQuest franchise by its current owners.

@@ -584,7 +584,6 @@ class Item(models.Model):
 
     class Meta:
         db_table = "eq_items"
-        unique_together = (("id",), ("name",), ("lore",), ("minstatus",))
         managed = False
 
 
@@ -597,11 +596,14 @@ class CharacterClass(models.Model):
     class Meta:
         db_table = "eq_classes"
 
+    def __str__(self):
+        return self.name
+
 
 class Spell(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=64, null=True)
-    player_1 = models.CharField(max_length=64, default='BLUE_TRAIL')
+    player_1 = models.CharField(max_length=64, default="BLUE_TRAIL")
     teleport_zone = models.CharField(max_length=64, null=True)
     you_cast = models.CharField(max_length=120, null=True)
     other_casts = models.CharField(max_length=120, null=True)
@@ -790,6 +792,7 @@ class Spell(models.Model):
         db_table = "eq_spells_new"
         managed = False
 
+
 class Deity(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
@@ -797,14 +800,26 @@ class Deity(models.Model):
     class Meta:
         db_table = "eq_deities"
 
+    def __str__(self):
+        return self.name
+
+
+class Skill(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=64)
+
+    class Meta:
+        db_table = "eq_skills"
+
+
 class CharacterData(models.Model):
     id = models.AutoField(primary_key=True)
     account_id = models.IntegerField(default=0)
     forum_id = models.IntegerField(default=0)
     name = models.CharField(max_length=64, unique=True)
-    last_name = models.CharField(max_length=64, default='')
-    title = models.CharField(max_length=32, default='')
-    suffix = models.CharField(max_length=32, default='')
+    last_name = models.CharField(max_length=64, default="")
+    title = models.CharField(max_length=32, default="")
+    suffix = models.CharField(max_length=32, default="")
     zone_id = models.IntegerField(default=0)
     y = models.FloatField(default=0)
     x = models.FloatField(default=0)
@@ -812,7 +827,7 @@ class CharacterData(models.Model):
     heading = models.FloatField(default=0)
     gender = models.PositiveSmallIntegerField(default=0)
     race = models.PositiveSmallIntegerField(default=0)
-    class_field = models.PositiveSmallIntegerField(default=0, db_column='class')
+    class_field = models.PositiveSmallIntegerField(default=0, db_column="class")
     level = models.PositiveIntegerField(default=0)
     deity = models.PositiveIntegerField(default=0)
     birthday = models.PositiveIntegerField(default=0)
@@ -841,7 +856,7 @@ class CharacterData(models.Model):
     sta = models.PositiveIntegerField(default=0)
     cha = models.PositiveIntegerField(default=0)
     dex = models.PositiveIntegerField(default=0)
-    int = models.PositiveIntegerField(default=0, db_column='int')
+    int = models.PositiveIntegerField(default=0, db_column="int")
     agi = models.PositiveIntegerField(default=0)
     wis = models.PositiveIntegerField(default=0)
     zone_change_count = models.PositiveIntegerField(default=0)
@@ -850,7 +865,7 @@ class CharacterData(models.Model):
     pvp_status = models.PositiveSmallIntegerField(default=0)
     air_remaining = models.PositiveIntegerField(default=0)
     autosplit_enabled = models.PositiveIntegerField(default=0)
-    mailkey = models.CharField(max_length=16, default='')
+    mailkey = models.CharField(max_length=16, default="")
     firstlogon = models.PositiveSmallIntegerField(default=0)
     e_aa_effects = models.PositiveIntegerField(default=0)
     e_percent_to_aa = models.PositiveIntegerField(default=0)
@@ -885,65 +900,93 @@ class CharacterCurrency(models.Model):
     class Meta:
         db_table = "eq_character_currency"
 
+    def __str__(self):
+        return f"CharacterCurrency {self.id}: Character {self.character_data_id} - Platinum {self.platinum} - Gold {self.gold} - Silver {self.silver} - Copper {self.copper}"
+
 
 class CharacterFactionValue(models.Model):
     id = models.AutoField(primary_key=True)
-    faction_id = models.PositiveSmallIntegerField(default=0)
+    character_data = models.ForeignKey("CharacterData", on_delete=models.CASCADE)
+    faction = models.ForeignKey("Faction", on_delete=models.CASCADE)
     current_value = models.SmallIntegerField(default=0)
     temp = models.PositiveSmallIntegerField(default=0)
 
     class Meta:
         db_table = "eq_character_faction_values"
-        unique_together = (("id", "faction_id"),)
+        unique_together = (("faction", "character_data"),)
+
+    def __str__(self):
+        return f"CharacterFactionValue {self.id}: Character {self.character_data_id} - Faction {self.faction_id} - Value {self.current_value}"
 
 
 class CharacterInventory(models.Model):
     id = models.AutoField(primary_key=True)
-    character_data = models.ForeignKey('CharacterData', on_delete=models.CASCADE)
-    slotid = models.PositiveIntegerField(default=0)
-    itemid = models.PositiveIntegerField(default=0, null=True)
+    character_data = models.ForeignKey("CharacterData", on_delete=models.CASCADE)
+    slot_id = models.PositiveIntegerField(default=0)
+    item = models.ForeignKey("Item", on_delete=models.CASCADE)
     charges = models.PositiveSmallIntegerField(default=0)
     custom_data = models.TextField(null=True)
     serialnumber = models.PositiveIntegerField(default=0)
     initialserial = models.PositiveSmallIntegerField(default=0)
 
     class Meta:
-        db_table = "eq_character_inventory"
-        unique_together = (("id", "slotid"),)
+        db_table = "eq_character_inventories"
+        unique_together = (("slot_id", "character_data"),)
+
+    def __str__(self):
+        return f"CharacterInventory {self.id}: Character {self.character_data.id} - Slot {self.slot_id} - Item {self.item.id}"
 
 
 class CharacterSkill(models.Model):
     id = models.AutoField(primary_key=True)
-    skill_id = models.PositiveSmallIntegerField(default=0)
+    character_data = models.ForeignKey("CharacterData", on_delete=models.CASCADE)
+    skill = models.ForeignKey("Skill", on_delete=models.CASCADE)
     value = models.PositiveSmallIntegerField(default=0)
 
     class Meta:
         db_table = "eq_character_skills"
-        unique_together = (("id", "skill_id"),)
+        unique_together = (("character_data", "skill"),)
+
+    def __str__(self):
+        return f"CharacterSkill {self.id}: Character {self.character_data_id} - Skill {self.skill.id} - Value {self.value}"
+
 
 class CharacterSpell(models.Model):
     id = models.AutoField(primary_key=True)
+    character_data = models.ForeignKey("CharacterData", on_delete=models.CASCADE)
     slot_id = models.PositiveSmallIntegerField(default=0)
-    spell_id = models.PositiveSmallIntegerField(default=0)
+    spell = models.ForeignKey("Spell", on_delete=models.CASCADE)
 
     class Meta:
         db_table = "eq_character_spells"
-        unique_together = (("id", "slot_id"),)
+        unique_together = (
+            ("slot_id", "character_data"),
+            ("spell", "character_data"),
+        )  # can't add new spell to spell book twice, can't have two spells in same slot
+
 
 class CharacterMemmedSpell(models.Model):
     id = models.AutoField(primary_key=True)
+    character_data = models.ForeignKey("CharacterData", on_delete=models.CASCADE)
     slot_id = models.PositiveSmallIntegerField(default=0)
-    spell_id = models.PositiveSmallIntegerField(default=0)
+    spell = models.ForeignKey("Spell", on_delete=models.CASCADE)
 
     class Meta:
         db_table = "eq_character_memmed_spells"
-        unique_together = (("id", "slot_id"),)
+        unique_together = (
+            ("character_data", "slot_id"),
+            ("spell", "character_data"),
+        )  # can't memorize same spell twice, can't have two spells in same slot
+
+    def __str__(self):
+        return f"CharacterMemmedSpell {self.id}: Character {self.character_data_id} - Slot {self.slot_id} - Spell {self.spell_id}"
 
 
 class CharacterBuff(models.Model):
     id = models.AutoField(primary_key=True)
+    character_data = models.ForeignKey("CharacterData", on_delete=models.CASCADE)
     slot_id = models.PositiveSmallIntegerField()
-    spell_id = models.PositiveSmallIntegerField()
+    spell = models.ForeignKey("Spell", on_delete=models.CASCADE)
     caster_level = models.PositiveSmallIntegerField()
     caster_name = models.CharField(max_length=64)
     ticsremaining = models.PositiveIntegerField()
@@ -957,7 +1000,13 @@ class CharacterBuff(models.Model):
 
     class Meta:
         db_table = "eq_character_buffs"
-        unique_together = (("id", "slot_id"),)
+        unique_together = (
+            ("character_data", "slot_id"),
+            ("character_data", "spell"),
+        )  # can't have two buffs in same slot, can't have same buff twice
+
+    def __str__(self):
+        return f"CharacterBuff {self.id}: Character {self.character_data_id} - Slot {self.slot_id} - Spell {self.spell_id}"
 
 
 class MerchantInventory(models.Model):
@@ -969,5 +1018,8 @@ class MerchantInventory(models.Model):
     quantity = models.PositiveSmallIntegerField(default=0)
 
     class Meta:
-        db_table = "eq_merchant_inventory"
+        db_table = "eq_merchant_inventories"
         unique_together = (("npcid", "slot"),)
+
+    def __str__(self):
+        return f"MerchantInventory {self.id}: NPC {self.npcid} - Slot {self.slot} - Item {self.itemid}"

@@ -106,6 +106,9 @@ class Command(BaseCommand):
         # Split the filtered_data into separate commands to prevent database timeouts
         commands = filtered_data.split(";\n")
 
+        # Remove the "CREATE" table statements from commands and leave only the insert ones
+        # commands = [command for command in commands if "INSERT INTO" in command]
+
         # Execute each command individually
         with connection.cursor() as cursor:
             for command in commands:
