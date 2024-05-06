@@ -868,6 +868,7 @@ class CharacterData(models.Model):
 
 class CharacterCurrency(models.Model):
     id = models.AutoField(primary_key=True)
+    character_data = models.OneToOneField(CharacterData, on_delete=models.CASCADE)
     platinum = models.PositiveIntegerField(default=0)
     gold = models.PositiveIntegerField(default=0)
     silver = models.PositiveIntegerField(default=0)
@@ -898,6 +899,7 @@ class CharacterFactionValues(models.Model):
 
 class CharacterInventory(models.Model):
     id = models.AutoField(primary_key=True)
+    character_data = models.ForeignKey('CharacterData', on_delete=models.CASCADE)
     slotid = models.PositiveIntegerField(default=0)
     itemid = models.PositiveIntegerField(default=0, null=True)
     charges = models.PositiveSmallIntegerField(default=0)

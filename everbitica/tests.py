@@ -11,6 +11,7 @@ class ItemModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         call_command('seed_eq_data_tables')
+        call_command('seed_additional_eq_data')
 
     def test_item_creation(self):
         item = Item.objects.get(id=1001)
@@ -18,6 +19,31 @@ class ItemModelTest(TestCase):
         self.assertEqual(item.ac, 2)
         self.assertEqual(item.price, 200)
     
+class TestEQFeatures(TestCase):
+    #create CharacterData then create and associated CharacterCurrency, CharacterInventory, CharacterSpells (pick 8 at random from existing Spell model)
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command('seed_eq_data_tables')
+        call_command('seed_additional_eq_data')
+        cls.character = CharacterData.objects.create(name="Test Character")
+        cls.currency = CharacterCurrency.objects.create(character_data=cls.character, platinum=100, gold=100, silver=100, copper=100)
+        cls.inventory = CharacterInventory.objects.create()
+
+        #save the inventory to the character
+        cls.character.inventory = cls.inventory
+        cls.character.save()
+
+        #add 8 spells to the character
+        spells = Spell.objects.all().order_by('?')[:8]
+        for spell in spells:
+            CharacterSpells.objects.create(character=cls.character, spell=spell)
+
+    
+
+    def test_features(self):
+        self.assertEqual(CharacterData.objects.count(), 1)
+
 
 # class GetPartyMembersTest(TestCase):
 
