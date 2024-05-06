@@ -14,34 +14,26 @@ Run `docker "everbitica"` - there's a container for serving web app and one for 
 
 Running `docker ps` in terminal can verify these are running.
 
-docker-compose exec web python manage.py shell
+`docker-compose exec web python manage.py shell` to dabble with docker shell
 
 #### Setup, Migrating, and Seeding
 
-EQ seeding needs to happen first so that it doesn't wipe out eq_ prefixed tables from Django migrations:
+`docker-compose exec web python manage.py project_setup`
 
-docker-compose exec web python manage.py seed_eq_data_tables 
+Alternatively, to seed all EQ tables used in EQEmulator, to research and investigate structure or whatever: 
 
-docker-compose exec web python manage.py makemigrations
-
-docker-compose exec web python manage.py migrate
-
-docker-compose exec web python manage.py seed_additional_eq_data
-
-Alternatively, to seed all EQ tables for research or whatever: 
-
-docker exec -it everbitica-db-1 /bin/bash -c "mysql -u user_name -puser_password database_name < /devassets/everquest_data.sql" 
+`docker exec -it everbitica-db-1 /bin/bash -c "mysql -u user_name -puser_password database_name < /devassets/everquest_data.sql"`
 
 #### Tests
 
-docker-compose exec web python manage.py test
+`docker-compose exec web python manage.py test`
 
 #### Requirements Updates
 
 Changes to requirements.txt to add libraries requires:
 
-1. docker-compose build
-2. docker-compose up
+1. `docker-compose build`
+2. `docker-compose up`
 
 
 ### To-Do
@@ -65,7 +57,7 @@ Changes to requirements.txt to add libraries requires:
 - Lots more
 
 ### Probably Not Doing Any Time Soon
-- Pull in habits and to-do items, be able to press them in UI - recreating this is a lot of work for not much return, easy enough to mark off on actual Habitica website 
+- Pull in habits and to-do items, be able to press them in UI - recreating this is a lot of work for not much return, easy enough to mark off on actual Habitica website. However with Habitica being open-source, maybe I can use their existing React code to make this faster.
 
 ### Resources
 

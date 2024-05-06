@@ -33,13 +33,6 @@ class Command(BaseCommand):
                 "This command cannot be run outside development environment."
             )
 
-        # # drop all existing eq_ prefix tables
-        # with connection.cursor() as cursor:
-        #     cursor.execute("SHOW TABLES LIKE 'eq_%'")
-        #     tables = cursor.fetchall()
-        #     for table in tables:
-        #         cursor.execute(f"DROP TABLE {table[0]}")
-
         # List of tables to keep
         tables_to_keep = [
             "books",

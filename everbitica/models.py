@@ -886,7 +886,7 @@ class CharacterCurrency(models.Model):
         db_table = "eq_character_currency"
 
 
-class CharacterFactionValues(models.Model):
+class CharacterFactionValue(models.Model):
     id = models.AutoField(primary_key=True)
     faction_id = models.PositiveSmallIntegerField(default=0)
     current_value = models.SmallIntegerField(default=0)
@@ -912,7 +912,7 @@ class CharacterInventory(models.Model):
         unique_together = (("id", "slotid"),)
 
 
-class CharacterSkills(models.Model):
+class CharacterSkill(models.Model):
     id = models.AutoField(primary_key=True)
     skill_id = models.PositiveSmallIntegerField(default=0)
     value = models.PositiveSmallIntegerField(default=0)
@@ -921,7 +921,7 @@ class CharacterSkills(models.Model):
         db_table = "eq_character_skills"
         unique_together = (("id", "skill_id"),)
 
-class CharacterSpells(models.Model):
+class CharacterSpell(models.Model):
     id = models.AutoField(primary_key=True)
     slot_id = models.PositiveSmallIntegerField(default=0)
     spell_id = models.PositiveSmallIntegerField(default=0)
@@ -930,7 +930,7 @@ class CharacterSpells(models.Model):
         db_table = "eq_character_spells"
         unique_together = (("id", "slot_id"),)
 
-class CharacterMemmedSpells(models.Model):
+class CharacterMemmedSpell(models.Model):
     id = models.AutoField(primary_key=True)
     slot_id = models.PositiveSmallIntegerField(default=0)
     spell_id = models.PositiveSmallIntegerField(default=0)
@@ -940,7 +940,7 @@ class CharacterMemmedSpells(models.Model):
         unique_together = (("id", "slot_id"),)
 
 
-class CharacterBuffs(models.Model):
+class CharacterBuff(models.Model):
     id = models.AutoField(primary_key=True)
     slot_id = models.PositiveSmallIntegerField()
     spell_id = models.PositiveSmallIntegerField()

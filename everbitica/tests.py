@@ -24,15 +24,11 @@ class TestEQFeatures(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        call_command('seed_eq_data_tables')
-        call_command('seed_additional_eq_data')
+        # call_command('seed_eq_data_tables')
+        # call_command('seed_additional_eq_data')
         cls.character = CharacterData.objects.create(name="Test Character")
         cls.currency = CharacterCurrency.objects.create(character_data=cls.character, platinum=100, gold=100, silver=100, copper=100)
-        cls.inventory = CharacterInventory.objects.create()
-
-        #save the inventory to the character
-        cls.character.inventory = cls.inventory
-        cls.character.save()
+        cls.inventory = CharacterInventory.objects.create(character_data=cls.character)
 
         #add 8 spells to the character
         spells = Spell.objects.all().order_by('?')[:8]
