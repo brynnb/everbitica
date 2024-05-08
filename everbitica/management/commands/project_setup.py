@@ -5,6 +5,7 @@ from django.db import connection
 from django.core.management.base import CommandError
 from dotenv import load_dotenv
 import os
+import shutil
 
 
 class Command(BaseCommand):
@@ -32,9 +33,15 @@ class Command(BaseCommand):
                 "SET FOREIGN_KEY_CHECKS = 1;"
             )  # Re-enable foreign key checks
 
-        # Import EverQuest data
-        self.stdout.write(self.style.SUCCESS("Importing EverQuest data..."))
-        call_command("seed_eq_data_tables")
+        # self.stdout.write(self.style.SUCCESS("Deleting all migration files..."))
+        # migration_files = os.listdir("everbitica/migrations")
+        # for file in migration_files:
+        #     file_path = f"everbitica/migrations/{file}"
+        #     if not file.startswith(".") and not file == "__init__.py":
+        #         if os.path.isfile(file_path):
+        #             os.remove(file_path)
+        #         elif os.path.isdir(file_path):
+        #             shutil.rmtree(file_path)
 
         # Make migrations
         self.stdout.write(self.style.SUCCESS("Creating migrations..."))
@@ -43,6 +50,10 @@ class Command(BaseCommand):
         # Migrate
         self.stdout.write(self.style.SUCCESS("Migrating..."))
         call_command("migrate")
+
+        # Import EverQuest data
+        self.stdout.write(self.style.SUCCESS("Importing EverQuest data..."))
+        call_command("seed_eq_data_tables")
 
         # Seed additional EQ data
         self.stdout.write(self.style.SUCCESS("Seeding additional EQ data..."))

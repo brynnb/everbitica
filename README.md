@@ -24,6 +24,10 @@ Alternatively, to seed all EQ tables used in EQEmulator, to research and investi
 
 `docker exec -it everbitica-db-1 /bin/bash -c "mysql -u user_name -puser_password database_name < /devassets/everquest_data.sql"`
 
+To see most recent foreign key constraint error:
+
+`docker exec -it everbitica-db-1 /bin/bash -c "mysql -u user_name -puser_password database_name -e 'SHOW ENGINE INNODB STATUS\\G'"`
+
 #### Tests
 
 `docker-compose exec web python manage.py test`

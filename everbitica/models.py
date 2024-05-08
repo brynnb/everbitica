@@ -7,7 +7,7 @@ def __str__(self):
 
 
 class Book(models.Model):
-    name = models.CharField(max_length=30, unique=True, default="")
+    name = models.CharField(max_length=30, unique=True, default="", primary_key=True)
     txtfile = models.TextField()
 
     def __str__(self):
@@ -15,7 +15,7 @@ class Book(models.Model):
 
     class Meta:
         db_table = "eq_books"
-        managed = False
+        managed = True
 
 
 class Faction(models.Model):
@@ -31,7 +31,7 @@ class Faction(models.Model):
 
     class Meta:
         db_table = "eq_faction_list"
-        managed = False
+        managed = True
 
 
 """
@@ -75,11 +75,11 @@ class Lootdrop(models.Model):
 
     class Meta:
         db_table = "eq_lootdrop"
-        managed = False
+        managed = True
 
 
 class LootdropEntry(models.Model):
-    lootdrop = models.ForeignKey(Lootdrop, on_delete=models.CASCADE)
+    lootdrop = models.ForeignKey(Lootdrop, on_delete=models.CASCADE, primary_key=True)
     item = models.ForeignKey(
         "Item", on_delete=models.CASCADE, db_column="item_id", default=0
     )
@@ -94,8 +94,7 @@ class LootdropEntry(models.Model):
     class Meta:
         db_table = "eq_lootdrop_entries"
         unique_together = (("lootdrop", "item_id"),)
-        managed = False
-
+        managed = True
 
 class Loottable(models.Model):
     id = models.AutoField(primary_key=True)
@@ -111,12 +110,13 @@ class Loottable(models.Model):
 
     class Meta:
         db_table = "eq_loottable"
-        managed = False
+        managed = True
 
 
 class LoottableEntry(models.Model):
-    loottable = models.ForeignKey(Loottable, on_delete=models.CASCADE)
-    lootdrop = models.ForeignKey(Lootdrop, on_delete=models.CASCADE)
+    # id = models.AutoField(primary_key=True)
+    loottable = models.ForeignKey(Loottable, on_delete=models.CASCADE, primary_key=True)
+    lootdrop = models.ForeignKey(Lootdrop, on_delete=models.CASCADE, null=True)
     multiplier = models.SmallIntegerField(default=1)
     probability = models.SmallIntegerField(default=100)
     droplimit = models.SmallIntegerField(default=0)
@@ -126,7 +126,7 @@ class LoottableEntry(models.Model):
     class Meta:
         db_table = "eq_loottable_entries"
         unique_together = (("loottable", "lootdrop"),)  # TODO: needed, maybe bad?
-        managed = False
+        managed = True
 
 
 class Zone(models.Model):
@@ -239,7 +239,7 @@ class Zone(models.Model):
             ),
         ]
         db_table = "eq_zone"
-        managed = False
+        managed = True
 
 
 class Race(models.Model):
@@ -249,7 +249,7 @@ class Race(models.Model):
 
     class Meta:
         db_table = "eq_races"
-        managed = False
+        managed = True
 
 
 class NpcType(models.Model):
@@ -317,8 +317,8 @@ class NpcType(models.Model):
     CHA = models.PositiveIntegerField(default=75)
     see_sneak = models.PositiveSmallIntegerField(default=0)
     see_improved_hide = models.PositiveSmallIntegerField(default=0)
-    ATK = models.PositiveIntegerField(default=0)
-    Accuracy = models.PositiveIntegerField(default=0)
+    ATK = models.BigIntegerField(default=0)
+    Accuracy = models.BigIntegerField(default=0)
     slow_mitigation = models.SmallIntegerField(default=0)
     maxlevel = models.PositiveSmallIntegerField(default=0)
     scalerate = models.IntegerField(default=100)
@@ -355,7 +355,7 @@ class NpcType(models.Model):
 
     class Meta:
         db_table = "eq_npc_types"
-        managed = False
+        managed = True
 
 
 class Spawn(models.Model):
@@ -384,7 +384,7 @@ class Spawn(models.Model):
 
     class Meta:
         db_table = "eq_spawn2"
-        managed = False
+        managed = True
 
 
 class Spawnentry(models.Model):
@@ -400,7 +400,7 @@ class Spawnentry(models.Model):
 
     class Meta:
         db_table = "eq_spawnentry"
-        managed = False
+        managed = True
 
 
 class Spawngroup(models.Model):
@@ -423,7 +423,7 @@ class Spawngroup(models.Model):
 
     class Meta:
         db_table = "eq_spawngroup"
-        managed = False
+        managed = True
 
 
 class Item(models.Model):
@@ -451,7 +451,7 @@ class Item(models.Model):
     casttime = models.IntegerField()
     casttime_2 = models.IntegerField()
     classes = models.IntegerField()
-    color = models.IntegerField()
+    color = models.PositiveIntegerField()
     price = models.IntegerField()
     cr = models.IntegerField()
     damage = models.IntegerField()
@@ -584,21 +584,7 @@ class Item(models.Model):
 
     class Meta:
         db_table = "eq_items"
-        managed = False
-
-
-class CharacterClass(models.Model):
-    id = models.IntegerField(primary_key=True)
-    bitmask = models.IntegerField(null=True)
-    name = models.CharField(max_length=50)
-    spell_list_id = models.IntegerField(null=True, blank=True)
-
-    class Meta:
-        db_table = "eq_classes"
-
-    def __str__(self):
-        return self.name
-
+        managed = True
 
 class Spell(models.Model):
     id = models.AutoField(primary_key=True)
@@ -790,7 +776,7 @@ class Spell(models.Model):
 
     class Meta:
         db_table = "eq_spells_new"
-        managed = False
+        managed = True
 
 
 class Deity(models.Model):
@@ -804,13 +790,24 @@ class Deity(models.Model):
         return self.name
 
 
-class Skill(models.Model):
+class Skill(models.Model): #I think this is redundant, the eq_skill_difficulty table works as this 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=64)
 
     class Meta:
         db_table = "eq_skills"
 
+class CharacterClass(models.Model):
+    id = models.AutoField(primary_key=True)
+    bitmask = models.IntegerField(null=True)
+    name = models.CharField(max_length=50)
+    spell_list_id = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        db_table = "eq_classes"
+
+    def __str__(self):
+        return self.name
 
 class CharacterData(models.Model):
     id = models.AutoField(primary_key=True)
@@ -837,12 +834,12 @@ class CharacterData(models.Model):
     anon = models.PositiveSmallIntegerField(default=0)
     gm = models.PositiveSmallIntegerField(default=0)
     face = models.PositiveIntegerField(default=0)
-    hair_color = models.PositiveSmallIntegerField(default=0)
+    hair_color = models.PositiveIntegerField(default=0)
     hair_style = models.PositiveSmallIntegerField(default=0)
     beard = models.PositiveSmallIntegerField(default=0)
-    beard_color = models.PositiveSmallIntegerField(default=0)
-    eye_color_1 = models.PositiveSmallIntegerField(default=0)
-    eye_color_2 = models.PositiveSmallIntegerField(default=0)
+    beard_color = models.PositiveIntegerField(default=0)
+    eye_color_1 = models.PositiveIntegerField(default=0)
+    eye_color_2 = models.PositiveIntegerField(default=0)
     exp = models.PositiveIntegerField(default=0)
     aa_points_spent = models.PositiveIntegerField(default=0)
     aa_exp = models.PositiveIntegerField(default=0)

@@ -3,6 +3,7 @@ from django.db import connection
 import re
 import os
 from dotenv import load_dotenv
+from django.apps import apps
 
 
 """ 
@@ -19,6 +20,7 @@ This uses the "alkabor_2024-03-13-12_47.tar.gz" version of their database. There
 This SQL dump was also modified to remove comments since they were throwing errors when trying to import the data, but it's unclear if that would be needed with the import command in its current form
 
 """
+
 
 class Command(BaseCommand):
     help = "Import EverQuest data"
@@ -100,19 +102,40 @@ class Command(BaseCommand):
         filtered_data = re.sub(r"class_`", "class_2`", filtered_data)
         filtered_data = re.sub(r"_(?=`)", "", filtered_data)
 
-        filtered_data = re.sub(r"`\b_(\w+)", r"`\1", filtered_data) #remove underscores before field names too, we don't need them to avoid keyword conflicts
-
+        filtered_data = re.sub(
+            r"`\b_(\w+)", r"`\1", filtered_data
+        )  # remove underscores before field names too, we don't need them to avoid keyword conflicts
 
         # Split the filtered_data into separate commands to prevent database timeouts
         commands = filtered_data.split(";\n")
 
-        # Remove the "CREATE" table statements from commands and leave only the insert ones
-        # commands = [command for command in commands if "INSERT INTO" in command]
+        # don't create a table for one created in the migration process. we don't want to rely on the original EQEmu SQL table creation because it doesn't include foreign keys and fields used for relationships
+        migrated_table_names = [model._meta.db_table for model in apps.get_models()]
+
+        # Loop through all commands and look for "CREATE TABLE `table_name`" and remove the command if the table matches one in the migrated_table_names list
+        for index, command in enumerate(commands):
+            if "CREATE TABLE" in command:
+                table_name = command.split("`")[1]
+                if table_name in migrated_table_names:
+                    commands.pop(index)
+
+
 
         # Execute each command individually
         with connection.cursor() as cursor:
             for command in commands:
                 if command.strip():  # Make sure the command is not empty
-                    cursor.execute(command)
+                    #if command contains "CREATE TABLE", stdout.write the table name
+                    if "CREATE TABLE" in command:
+                        table_name = command.split("`")[1]
+                        self.stdout.write(self.style.SUCCESS(f"Creating table {table_name}"))
+                    # Print the command before executing it
+                    # self.stdout.write(f"Executing command: {command}")
+                    try:
+                        cursor.execute(command)
+                    except Exception as e:
+                        self.stdout.write(f"Failed to execute command: {e}")
+                        
+                        self.stdout.write(f"Failed command: {command[:100]}")
 
         self.stdout.write(self.style.SUCCESS("Successfully imported EverQuest data"))
