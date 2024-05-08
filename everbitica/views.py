@@ -326,7 +326,7 @@ def format_messages(raw_messages):
                         "class": get_chat_class(message.info["type"]),
                     }
                 )
-                if len(user_damage_messages) > 1 and "for 0.0 damage" not in user_damage_messages[1]:
+                if len(user_damage_messages) > 1 and " 0.0 " not in user_damage_messages[1]: #don't include zero damage chat messages
                     messages.append(
                         {
                             "text": user_damage_messages[1],
