@@ -46,7 +46,7 @@ def get_party_members():
     simplified_members = []
     for member in party_members:
         simplified_members.append(
-        {
+            {
                 "hp": member["stats"]["hp"],
                 "mp": member["stats"]["mp"],
                 "maxMP": member["stats"]["maxMP"],
@@ -96,7 +96,7 @@ def get_all_ui_data():
         "target_percent_done": target_percent_done,
         "spell_gems": get_spell_gems(),
         "video_embed_url": get_video_embed_option(),
-        "party_members": get_party_members()
+        "party_members": get_party_members(),
     }
 
     # save all view data to json to retrieve later in offline mode
@@ -264,15 +264,6 @@ def get_player_stats(user_data):
     return player_data
 
 
-# def get_group_members(group_data):
-#     # get all group members and their class
-#     group_members = {}
-#     for member in group_data.data.members:
-#         group_members[member.id] = member.profile.name
-
-#     return group_members
-
-
 def get_spell_gems():
     """Return a dictionary of all spell gems and their spritesheet coordinates."""
     spell_gems = {
@@ -335,7 +326,7 @@ def format_messages(raw_messages):
                         "class": get_chat_class(message.info["type"]),
                     }
                 )
-                if len(user_damage_messages) > 1:
+                if len(user_damage_messages) > 1 and "for 0.0 damage" not in user_damage_messages[1]:
                     messages.append(
                         {
                             "text": user_damage_messages[1],
