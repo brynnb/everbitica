@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 env = Config(os.environ)
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -58,7 +58,7 @@ ROOT_URLCONF = "everbitica.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend/build')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -129,10 +129,9 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-# REACT_APP_DIR = os.path.join(BASE_DIR, '..', 'frontend', 'build', 'static')  #TODO: finish implementing
-
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "frontend/public/",
+    BASE_DIR / "frontend/build/static/",
 ]
 
 # Default primary key field type
